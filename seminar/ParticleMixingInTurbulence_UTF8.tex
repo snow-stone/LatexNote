@@ -1,0 +1,131 @@
+\documentclass[a4paper,10pt,francais]{article}
+    \usepackage[T1]{fontenc}
+    \usepackage[ansinew]{inputenc}
+    \usepackage{graphicx}
+    \usepackage{babel}
+    \usepackage{amssymb}
+	\usepackage{textcomp}
+	\usepackage{bm}
+	\usepackage{authblk}
+%%% Mise en page
+\setlength{\hoffset}{-0.75in} \setlength{\voffset}{-0.50in}
+\setlength{\topmargin}{0cm} \setlength{\headheight}{0cm}
+\setlength{\headsep}{1cm} \setlength{\textwidth}{17cm}
+\setlength{\textheight}{26.5cm} \setlength{\footskip}{0cm}
+\pagestyle{empty} \everymath{\displaystyle}
+
+%%% Compteurs
+\newcounter{exo}
+\newcommand{\nvexo}{
+\stepcounter{exo} \vspace{0.2cm} \noindent
+                  \textbf{Exercice n${}^o$\theexo}\hrulefill \\
+                       }
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\et}{\textrm{ et }}
+\newcommand{\ou}{\textrm{ ou }}
+\newcommand{\non}{\textrm{non }}
+\newcommand{\ssi}{si et seulement si }
+\newcommand{\ch}{\mathrm{ch }\, }
+\newcommand{\sh}{\mathrm{sh }\, }
+\newcommand{\tnh}{\mathrm{th }\, }
+\newcommand{\pgcd}{\mathrm{pgcd} }
+\newcommand{\ppcm}{\mathrm{ppcm} }
+\newcommand{\com}{\mathrm{com} }
+\newcommand{\rg}{\mathrm{rg} }
+\newcommand{\val}{\mathrm{val} }
+\newcommand{\Argch}{\mathrm{Argch }\, }
+\newcommand{\Argsh}{\mathrm{Argsh }\, }
+\newcommand{\Argth}{\mathrm{Argth }\, }
+\newcommand{\Arcsin}{\mathrm{Arcsin }\, }
+\newcommand{\Arccos}{\mathrm{Arccos }\, }
+\newcommand{\Arctan}{\mathrm{Arctan }\, }
+\newcommand{\rd}[1]{\overset{\; \circ}{#1}}
+\newcommand{\br}[1]{\overline{#1}}
+\newcommand{\un}{$(u_n)_{n \in \N}$}
+\newcommand{\card}{\mathrm{Card}}
+\newcommand{\re}{\textrm{Re }}
+\newcommand{\im}{\textrm{Im }}
+\newcommand{\pr}{{\bf Preuve.} }
+\newcommand{\vect}[1]{\overrightarrow{#1}}
+\newcommand{\boite}[1]{\framebox[1.1\width]{#1}}
+\newcommand{\voca}{\section{Vocabulary}}
+\newcommand{\dr}{\begin{quote}}
+\newcommand{\fr}{\end{quote}}
+
+
+%%% Abreviations
+\let\leq=\leqslant \let\geq=\geqslant
+\let\sm=\setminus
+\let\wt=\widetilde
+\let\wh=\widehat
+\let \l=<
+\let \g=>
+\newtheorem{thm}{Théorème}
+\newcommand{\cqfd}{\hfill $\Box$}
+\newcommand{\sern}{\sum_{n=1}^{\infty}}
+\pagestyle{myheadings}
+\markright{{\footnotesize \'Ecole Centrale de Lyon - LMFA}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Concentration préférentielle de particules inertielles en turbulence}
+\author[1]{Mickael Bourgoin}
+\affil[1]{LPENSL, Lyon}
+\renewcommand\Affilfont{\itshape\small}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\parindent=0cm
+\parskip=3mm
+
+\maketitle
+
+\section{Notes and memory}
+
+
+\subsection{Short Intro}
+
+Normally turbulence enhances diffisivity and enhances mixing. For which we will think that a turbulent flow carrying particles will tend to homogenize its distribution in space (which is still in flow of course). However particles formes clusters instead of being randomly present in the flow, meaning there are regions where the particles density remains high for a period of time and there are regions where are less populated. \\
+
+Ex : tracers in PIV, which is often small and has the same density as the fluid. The Stokes Number $St$ is a measure of flow tracer fidelity. $St \ll 0.1$, tracing accuracy errors are below 1\% \\
+
+{\bf In fact, particle movements in flow can be considered as a filtering  of fluid motion, meaning that particles who has some characteristic length will only be sensitive to flow patterns at certain scale (space and time)}.\\
+
+In a Eularian fluid turbulent energy spectrum of Kolmogorov, we place the particle with spatial wave number within inertial range, all that is higher wave number will then have no(or a uniform/homogeneous) effect on it (like Brownian motion).\\
+
+In turbulent energy spectrum of time, we will have integral time scale $T$ and the disspative time scale $T_\eta$. If the particle has a characteristic time (response time) between them. All process (if homogeneous and isotropic, and it is supposed to be so in the classic theory) that is far more quicker than its response time will not have a effect when taking integral over its response time.
+
+\subsection{Simple Eq}
+\subsubsection{Point Particle}
+On point particle (dimension negligable) $ D \ll \eta $, we have Eq of motion by Maxey and Riley 1983. With Faxen correction, Eq remains valid until about $5\eta$. There is a term taking all history into account for which it is often neglected.
+
+\subsubsection{Mininum Stokian Model}
+$$ \frac{d\vec{v}}{dt} = \frac{1}{\tau_p} (\vec{u}-\vec{v})$$
+Where $St=\frac{\tau_p}{\tau_{\eta}}$ and it is a function of $\Gamma$ density ratio and $D$ diameter. Note that the model is valid for a particle of certain diamter and density for a $St \l St_{critical}$. {\bf TO SEE slides if disponible}
+
+\subsection{Observation and Explications}
+Observations give the following results : when particles are uniformly/randomly distributed at the beginning, at time there will be region more populated and region less populated with a certain life time. \\
+
+\dr
+Consider the Minimum Stokian Model as a dynamic system taking a vectorial variable $(\vec{x}, \vec{u})$ and take divergence. The system is dissipative therefore has contractors. This is no-flow-dependant and might be an explanantion. \\
+\fr
+
+\dr
+Pure fluid explanation : the accelation of fluid is zero then approximately the particle doesn't accelerate either. $\longrightarrow$ Particle moves with the fluid part. Well if this fluid part remains so with a period of time, they may be more and more populated.
+\fr 
+
+\subsection{How do we say properly "populated"?}
+One way is to draw a grid and count down the particles falling into the grid and calculate the density. If the mesh is too refined, it will be one particle in one cell $iff$ no information. If the mesh is not fine $iff$ information too much averaged. How to choose the mesh size then ? \\
+
+The second way is to use a Voronoi area which looks rough but at least gives you each time a result. So every Voronoi element posses only one element and we take the inverse of the occupied area as a measure of particale density. \\
+
+The lecturer takes the second way\\ 
+
+\subsection{Conclusion}
+Pdf of particle density (x-axis inverse of area) mesured in experiment (channel air flow with water droplets jet [memory]) and the pdf of the corresponding DNS's non-accelaration region (pure fluid) collapse the best. And both Distribution has a populated region (some value in x) over the pure random curve.\\
+
+
+\end{document}

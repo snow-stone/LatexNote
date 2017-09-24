@@ -1,0 +1,122 @@
+\documentclass[a4paper,10pt,francais]{article}
+    \usepackage[T1]{fontenc}
+    \usepackage[ansinew]{inputenc}
+    \usepackage{graphicx}
+    \usepackage{babel}
+    \usepackage{amssymb}
+	\usepackage{textcomp}
+	\usepackage{bm}
+	\usepackage{authblk}
+%%% Mise en page
+\setlength{\hoffset}{-0.75in} \setlength{\voffset}{-0.50in}
+\setlength{\topmargin}{0cm} \setlength{\headheight}{0cm}
+\setlength{\headsep}{1cm} \setlength{\textwidth}{17cm}
+\setlength{\textheight}{26.5cm} \setlength{\footskip}{0cm}
+\pagestyle{empty} \everymath{\displaystyle}
+
+%%% Compteurs
+\newcounter{exo}
+\newcommand{\nvexo}{
+\stepcounter{exo} \vspace{0.2cm} \noindent
+                  \textbf{Exercice n${}^o$\theexo}\hrulefill \\
+                       }
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\et}{\textrm{ et }}
+\newcommand{\ou}{\textrm{ ou }}
+\newcommand{\non}{\textrm{non }}
+\newcommand{\ssi}{si et seulement si }
+\newcommand{\ch}{\mathrm{ch }\, }
+\newcommand{\sh}{\mathrm{sh }\, }
+\newcommand{\tnh}{\mathrm{th }\, }
+\newcommand{\pgcd}{\mathrm{pgcd} }
+\newcommand{\ppcm}{\mathrm{ppcm} }
+\newcommand{\com}{\mathrm{com} }
+\newcommand{\rg}{\mathrm{rg} }
+\newcommand{\val}{\mathrm{val} }
+\newcommand{\Argch}{\mathrm{Argch }\, }
+\newcommand{\Argsh}{\mathrm{Argsh }\, }
+\newcommand{\Argth}{\mathrm{Argth }\, }
+\newcommand{\Arcsin}{\mathrm{Arcsin }\, }
+\newcommand{\Arccos}{\mathrm{Arccos }\, }
+\newcommand{\Arctan}{\mathrm{Arctan }\, }
+\newcommand{\rd}[1]{\overset{\; \circ}{#1}}
+\newcommand{\br}[1]{\overline{#1}}
+\newcommand{\un}{$(u_n)_{n \in \N}$}
+\newcommand{\card}{\mathrm{Card}}
+\newcommand{\re}{\textrm{Re }}
+\newcommand{\im}{\textrm{Im }}
+\newcommand{\pr}{{\bf Preuve.} }
+\newcommand{\vect}[1]{\overrightarrow{#1}}
+\newcommand{\boite}[1]{\framebox[1.1\width]{#1}}
+\newcommand{\voca}{\section{Vocabulary}}
+\newcommand{\dr}{\begin{quote}}
+\newcommand{\fr}{\end{quote}}
+
+
+%%% Abreviations
+\let\leq=\leqslant \let\geq=\geqslant
+\let\sm=\setminus
+\let\wt=\widetilde
+\let\wh=\widehat
+\let \l=<
+\let \g=>
+\newtheorem{thm}{Théorème}
+\newcommand{\cqfd}{\hfill $\Box$}
+\newcommand{\sern}{\sum_{n=1}^{\infty}}
+\pagestyle{myheadings}
+\markright{{\footnotesize \'Ecole Centrale de Lyon - LMFA}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Efficacité de mélange de la turbulence fortement stratifiée : expériences dans la plate-forme Coriolis et open-science}
+\author[1]{Pierre Augier}
+\affil[1]{LEGI, Grenoble}
+\renewcommand\Affilfont{\itshape\small}
+
+\begin{document}
+\parindent=0cm
+\parskip=3mm
+
+\maketitle
+
+\section{Notes and memory}
+
+
+\subsection{Flow pattern}
+
+ 
+An example of flow of interest : stratified ocean water being perturbed. \\
+
+On the title "turbulence fortement stratifiée" means "turbulent flow while the density profile saying well stratified". Here comes the question : Is it right to have turbulence in stratified fluid? Or will the stratification kill turbulence? No! Theoritically proven that there can be turbulence while staying well stratified. There will be double cascade instead of a simple cascade in homogeneous and isotropic turbulence. \\
+
+Note that the flow of interest is highly anisotropic ! $u_z << u_x = O(u_y)$ and the characteristic length scale is then very different : $l_x = 10 km$ while $l_z = 10m$.
+
+General Eq in the non-dimensional form:
+$ \frac{\partial \bm{u}}{\partial t} + Eu \frac{\nabla p}{\rho} = \frac{1}{Re}\nabla^{2}\bm{u}+\frac{1}{Fr^2}\hat{g}$
+
+In reality, flow in atmosphere and ocean has $Fr \ll 1, Re \gg 1$ which corresponds to stratified turbulence. \\
+
+The length scale for bouyance force is of order $ L_b = u/N$ where $N$ is the Brunt Väisälä frequency $N = \sqrt{-\frac{g}{\rho}\frac{d\rho}{dz}}$. $Fr$ in this case is a quotient between two scales where one of them is $L_b$ \\
+
+"fortement stratifiée" corresponds to $Fr=10^{-3}$, for water $N=1$ and $\nu=10^{-6}$. $Fr=\frac{u}{L_h N}$ must be small, from which we deduce that water motion must be slow.
+On the other hand, $Re\gg1$ must be met! This can only be remedied by a great spatial scale which results in a plateform of 13m of diameter.
+
+\subsection{Mesurement}
+PIV demands particles in fluid when particles are very small like 60 mircon. They are static to the flow it self (stokes??). So that PIV can get the right moving velocity because the relative speed between particle and fluid is negligable to flow speed. \\
+
+alchool is better in PIV but French Law prevents them to have commanded that amount even for lab use. \\
+
+\subsection{Numerical tools}
+Open source is changing the world of research too. When sources are open we can more easily reproduce results. \\
+
+Python is good and good to find a job too. Consider use it more !! (And I am doing so)\\
+The lecturer uses much python to have the data well managed too. Which is impressive !\\
+
+Other things in Open source : astronomy LIGO
+
+
+\end{document}
