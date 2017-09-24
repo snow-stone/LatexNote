@@ -1,0 +1,760 @@
+\documentclass[a4paper,10pt,francais]{article}
+    \usepackage[T1]{fontenc}
+    \usepackage[ansinew]{inputenc}
+    \usepackage{graphicx}
+    \usepackage{babel}
+    \usepackage{amssymb}
+	\usepackage{textcomp}
+	\usepackage{bm}
+%%% Mise en page
+\setlength{\hoffset}{-0.75in} \setlength{\voffset}{-0.50in}
+\setlength{\topmargin}{0cm} \setlength{\headheight}{0cm}
+\setlength{\headsep}{1cm} \setlength{\textwidth}{17cm}
+\setlength{\textheight}{26.5cm} \setlength{\footskip}{0cm}
+\pagestyle{empty} \everymath{\displaystyle}
+
+%%% Compteurs
+\newcounter{exo}
+\newcommand{\nvexo}{
+\stepcounter{exo} \vspace{0.2cm} \noindent
+                  \textbf{Exercice n${}^o$\theexo}\hrulefill \\
+                       }
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\et}{\textrm{ et }}
+\newcommand{\ou}{\textrm{ ou }}
+\newcommand{\non}{\textrm{non }}
+\newcommand{\ssi}{si et seulement si }
+\newcommand{\ch}{\mathrm{ch }\, }
+\newcommand{\sh}{\mathrm{sh }\, }
+\newcommand{\tnh}{\mathrm{th }\, }
+\newcommand{\pgcd}{\mathrm{pgcd} }
+\newcommand{\ppcm}{\mathrm{ppcm} }
+\newcommand{\com}{\mathrm{com} }
+\newcommand{\rg}{\mathrm{rg} }
+\newcommand{\val}{\mathrm{val} }
+\newcommand{\Argch}{\mathrm{Argch }\, }
+\newcommand{\Argsh}{\mathrm{Argsh }\, }
+\newcommand{\Argth}{\mathrm{Argth }\, }
+\newcommand{\Arcsin}{\mathrm{Arcsin }\, }
+\newcommand{\Arccos}{\mathrm{Arccos }\, }
+\newcommand{\Arctan}{\mathrm{Arctan }\, }
+\newcommand{\rd}[1]{\overset{\; \circ}{#1}}
+\newcommand{\br}[1]{\overline{#1}}
+\newcommand{\un}{$(u_n)_{n \in \N}$}
+\newcommand{\card}{\mathrm{Card}}
+\newcommand{\re}{\textrm{Re }}
+\newcommand{\im}{\textrm{Im }}
+\newcommand{\pr}{{\bf Preuve.} }
+\newcommand{\vect}[1]{\overrightarrow{#1}}
+\newcommand{\boite}[1]{\framebox[1.1\width]{#1}}
+\newcommand{\voca}{ \section{Vocabulaire de la leçon}}
+\newcommand{\dr}{\begin{quote}}
+\newcommand{\fr}{\end{quote}}
+
+
+%%% Abreviations
+\let\leq=\leqslant \let\geq=\geqslant
+\let\sm=\setminus
+\let\wt=\widetilde
+\let\wh=\widehat
+\let \l=<
+\let \g=>
+\newtheorem{thm}{Théorème}
+\newcommand{\cqfd}{\hfill $\Box$}
+\newcommand{\sern}{\sum_{n=1}^{\infty}}
+\pagestyle{myheadings}
+\markright{{\footnotesize \'Ecole Centrale de Lyon - LMFA}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+\parindent = 0cm
+\parskip=3mm
+
+
+
+\LARGE{ {\bf Computaional Reology - REDUCTION}}
+
+\vspace{-.7cm}
+\section{Chapiter 2 : Conservation Laws and the Stress Tensor}
+\vspace{-.4cm}
+
+\normalsize{}
+\subsection{The Stress Tensor}
+\vspace{-.2cm}
+\normalsize{}
+ 
+\dr
+{\bf Théorème 2.1.} \\
+Transformation from a stress vector $\bm{s}_n(\bm{x},t)$ at a surface to a stress tensor $\bm{\sigma}(\bm{x},t)$. Proved its existence provided that the stress tensor is symmetric (for uniqueness? See appendix)
+$$
+\bm{s}_n(\bm{x},t) = \bm{n} \cdot \bm{\sigma}(\bm{x},t)
+$$
+\fr
+
+{\bf 2.4 Newtonian Fluid} \\
+Write the components $\sigma_{ij}$ of $\bm{\sigma}$ in 
+$$
+\sigma_{ij} = -p\delta_{ij}+T_{ij}
+$$
+$$
+T_{ij} = A_{ijkl} \frac{\partial u_k}{\partial x_l}
+$$
+An isotropic material is said to have invariance under rotation of axes, meaning that $\bm{T}$ should be isotropic tensor function of the components of $\nabla \bm{u}$. And Newtonian means linear. From eq(2.23) to eq(2.28), we prove for the Newtonian fluid $3\lambda + 2\eta = 0$ and for incompressible Newtonian fluid, $T_{ij}=\eta \dot{\gamma}_{ij}$ where $\bm{\dot{\gamma}}=(\nabla \bm{u} + (\nabla \bm{u})^T)$
+
+{\bf 2.4.1 Generalized Newtonian Fluid} \\
+Towards the non-Newtonian, first step is to simulate the shear-thining by making variant viscosity as eq(2.41) where the $I_i$ is the invariants of the second order symmetric tensor $\bm{\dot{\gamma}}$ 
+$$
+\sigma_{ij} = -p \delta_{ij} + \eta (I_1, I_2, I_3) \dot{\gamma}_{ij}
+$$
+As two of the invariants vanishes (one for incompressibility, another vanishes in a 1D simple shear flow), visosity is dependant only on eq(2.43) $\dot{\gamma}_{ij} \dot{\gamma}_{ji}$. Well, it is then usual to write $\eta$ as function of shear-rate $\dot{\gamma}$  where
+$$
+\dot{\gamma} = \sqrt{\frac{1}{2} \bm{\gamma}:\bm{\gamma}} = \sqrt{\frac{1}{2} \dot{\gamma}_{ij} \dot{\gamma}_{ji}}
+$$ 
+
+The $A:B$ between the two second order tensor is an operation taking lines of $A$ and colons $B$ taking scalar product and sum :
+$$
+\bm{A}:\bm{B} = A_{ij} B_{ji}
+$$ 
+
+{\bf 2.5.2-2.5.3 Order Fluids} \\
+In eq(2.55) kth-order Rivlin-Ericksen tensor $\bm{A_k}$ is obtained by k-time time-derivative then making $t'=t $ where $t'$ is used to define $\bm{C}$. \\
+
+Under Rivlin and Ericksen's assumption, extra-stress tenosr (or deviatoric stress) $\bm{T} = \bm{\sigma} + p\bm{I}$  is a polynomial function of the first N Rivlin-Ericksen tensors i.e. gradients of the velocity, acceleration and higer time derivatives. For 1st, 2nd and 3rd respectively (Note $A_i$ has dimension of $t^{-i}$ where t is the time):
+$$
+\bm{T_1} = a_1 \bm{A_1}
+$$
+$$
+\bm{T_2} = a_1 \bm{A_1} + a_2 \bm{A_2} + a_{11} \bm{A_1}^2
+$$
+$$
+\bm{T_3} = ...
+$$
+
+Well, a first order fluid is Newtonian (linear and non-variant viscosity). For both first and second order fluid, the viscosity is invariant (see eq(2.66)). \\
+
+First and second normal stress coefficients have an analytic expression: eq(2.67) and eq(2.68)
+
+{\bf 2.5.4 CEF Equation} \\
+It can be seen that $A_3 = 0$ for a simple shear flow from eq(2.64). From the recurrence relation, we have $A_k = 0, \forall k \geq 3$. Criminale, Ericksen and Filbey in 1958 made simplifications and derived the CEF Equation eq(2.80).
+$$
+\bm{T} = 
+\eta(\dot{\gamma})\bm{A_1} 
+- \frac{1}{2}\Phi_1(\dot{\gamma})\bm{A_2} + (\Phi_1(\dot{\gamma})+\Phi_2(\dot{\gamma})){\bm{A_1}}^2
+$$
+
+\newpage
+
+{\bf 2.6 More compilcated constitutive models} \\
+{\bf 2.6.1 Differential constitutive models} \\
+Oldroyd-type \\
+FENE, Phan-Thien-Tanne 
+
+\subsection{2.3}
+
+
+\begin{itemize} 
+\item Si $a,b$ sont des entiers, alors $a+b$ est un entier
+\item Si $a,b,c$ sont des entiers, alors $a+(b+c)=(a+b)+c$
+\item L'entier $0$ a la propriété: $\forall a \in \Z, a+0=0+a = a$
+\item Pour tout entier $a$, il existe un entier $b$ avec $a+b=b+a=0$
+\end{itemize}
+
+Bien sûr, ces propriétés sont très simples. Nous allons voir qu'elles se retrouvent dans 
+beaucoup de situations, pour d'autres ensembles que $\Z$ et pour d'autres opérations que
+la somme. 
+
+\dr
+{\bf Définition.} {\it Un groupe est un ensemble $G$ et une opération binaire interne $\ast$ sur $G$ qui 
+vérifie les trois propriétés suivantes:\\
+1. Associativité: $\forall x,y,z \in G, x\ast (y \ast z) = (x \ast y)\ast z$ 
+\\
+2. Element neutre: $\exists e \in G, \forall x \in G, x \ast e = e \ast x = x$ \\
+3. Inverse: $\forall x \in G, \exists y \in G, x \ast y =y \ast x = e$.}
+\fr
+
+{\it Commentaires.}\\ 1. Une opération
+binaire interne est une opération qui associe à deux éléments $x,y$ de $G$ un élément $x \ast y$ de $G$;
+elle est dite binaire parce qu'elle a besoin de deux éléments pour exister; elle est dite interne 
+parce que si $x,y$ sont dans $G$, $x\ast y$ est aussi dans $G$ \\
+2. La première propriété, l'associativité, montre que si on fait au moins deux opérations,
+les parenthèses ne sont pas nécessaires. On pourra écrire, sans qu'il y ait ambiguïté, des expressions
+comme $x \ast y \ast z$ ou $a\ast b \ast c \ast d$.\\
+3. L'élément neutre (qui est toujours unique, comme nous allons le voir) dans notre exemple de $\Z$ avec l'addition
+est bien sûr le nombre entier $0$. \\
+4. Si $x$ est donné, nous allons voir que l'inverse de $x$ est unique. On le note en général $x^{-1}$, de sorte
+que $x \ast x^{-1} = x^{-1} \ast x = e$. Dans notre exemple de $\Z$, l'inverse du nombre entier $a$ est
+le nombre entier $-a$.
+
+{\it Notation.} \\Dorénavant nous allons noter $xy$ au lieu de $x \ast y$. Il faut garder à l'esprit que
+$xy$ n'est pas nécessairement une multiplication entre deux nombres, mais une notation pour une
+situation plus générale. D'ailleurs, pour l'exemple de la somme dans $\Z$, $xy$ désigne la somme de 
+$x$ et $y$.
+
+
+\subsection{Exemples}
+
+1. $(\Z, +)$ est un groupe. L'élément neutre est $0$, et l'inverse de $a$ est le nombre $-a$.
+
+2. De même, $(\Q, +), (\R,+)$ et $(\C,+)$ sont des groupes.
+
+3. $(\N,+)$ n'est pas un groupe, car il n'existe pas d'élément $n \in \N$ avec $1+n=0$.
+
+4. $([-1,1],+)$ n'est pas un groupe, car $1+1 \not \in [-1,1]$.
+
+5. $(\R^*_+,\cdot)$ est un groupe d'élément neutre $1$, et l'inverse de $x$ est le nombre $\frac{1}{x}$.
+
+6. $(\R^*,\cdot)$ est un groupe.
+
+7. $(\R, \cdot)$ n'est pas un groupe, car il n'existe pas d'élément $x \in \R$ avec $0 \cdot x =1$.
+
+8. On note $U$ l'ensemble des nombres complexes de module 1. La multiplication des nombres complexes
+est une opération interne sur $U$, car si $z,z'$ sont de module 1, alors $zz'$ est aussi de module 1.
+Ensuite l'associativité est évidente, l'élément neutre est le nombre complexe 1, et tout $z \in U$
+possède un inverse dans $U$, à savoir $\frac{1}{z}$. 
+\\ Donc $(U, \cdot)$ est un groupe.
+
+\subsection{Groupes commutatifs. Groupes non commutatifs}
+
+Dans les exemples ci-dessous, les groupes ont tous la propriété $xy=yx$. Cette propriété ne fait
+pas partie de la définition d'un groupe, mais elle est souvent vraie.
+
+\dr
+{\bf Définition.} {\it Un groupe {\bf commutatif} est un groupe $G$
+dans lequel on a  $\forall x,y\in G, xy=yx$.}
+\fr
+
+Un groupe commutatif peut aussi être appelé groupe {\bf abélien}, en hommage au mathématicien {\it Abel}.
+\\
+Un groupe qui n'est pas commutatif est appéle groupe {\bf non commutatif} ou {\bf non abélien}.
+
+{\bf Exemple: Un groupe non commutatif. } \\ On prend un entier $n \geq 3$, et on considère
+l'ensemble $S_n$ de toutes les {\bf  bijections} de $E=\{1,\dots ,n\}$ vers $E=\{1,\dots,n\}$. 
+L'ensemble $S_n$ est de cardinal $n!$. Si $f,g$ sont deux bijections de $E$ vers $E$,
+la composée $f \circ g$ est aussi une bijection de $E$ vers $E$. Donc l'opération $\circ$ est une
+opération binaire interne sur $S_n$. Montrons que $(S_n, \circ)$ est un groupe.
+L'associativité est évidente, car l'opération $\circ$ est toujours associative. L'élément neutre pour
+$\circ$ est la bijection identité, qui envoie tout élément $x\in E$ sur $x$. L'inverse de la bijection
+$f$ est sa bijection réciproque. On a montré que $(S_n, \circ)$ est un groupe.
+Mais ce n'est pas un groupe commutatif. En effet, considérons la bijection $f: E \to E$ qui est définie
+par 
+$$
+f(1)=2, f(2)=3, f(3)=1,\qquad  f(n)=n \textrm{ pour } n \geq 4
+$$
+Considérons également la bijection $g: E \to E$ définie par
+$$
+g(1)=2, g(2)=1, \qquad g(n)=n \textrm{ pour } n \geq 3
+$$
+On voit que $(f \circ g)(1) =f(2)=3$ et $(g\circ f)(1)= g(2)=1$. Donc $f \circ g \not= g \circ f$, ce qui
+montre que $(S_n,\circ)$ n'est pas un groupe commutatif (pour $n \geq 3$). Le groupe $(S_n, \circ)$ est appelé {\bf le groupe symétrique sur $n$ éléments}. C'est un groupe non commutatif pour $n \geq 3$.
+Lorsque $n=1$ ou $n=2$, c'est un groupe commutatif.
+
+\subsection{Sous-groupes et morphismes}
+
+\dr
+{\bf Définition.}\\
+{\it Soit $(G,\cdot )$ un groupe. Un {\bf sous-groupe de $G$} est un sous-ensemble $H$ de $G$ qui
+possède les propriétés suivantes:
+\\
+1. $e \in H$ ($e$ est le neutre du groupe $G$) \\
+2. $\forall x,y \in H, xy \in H$ (propriété de stabilité de $H$ par l'opération de groupe) \\
+3. $\forall x \in H, x^{-1} \in H$ (propriété de stabilité de $H$ par passage à l'inverse)}
+\fr
+
+
+{\it Exemples.} \\
+$(\Z,+)$ est un sous-groupe de $(\Q,+)$.\\
+$(\Q,+)$ est un sous-groupe de $(\R,+)$.\\
+$(\R,+)$ est un sous-groupe de $(\C,+)$.\\
+$(\{+1,-1\},\cdot )$ est un sous-groupe de $(U,\cdot)$ ($U$ est l'ensemble des nombres complexes de module 1).\\
+$(U,\cdot)$ est un sous-groupe de $(\C-\{0\},\cdot)$.
+
+Le résultat suivant est très simple à démontrer. C'est pourquoi nous en laissons la preuve au lecteur. 
+
+\dr
+{\bf Théorème 2.2.} {\it Si $H$ est un sous-groupe de $G$, alors $H$, muni de l'opération de $G$, est un groupe.}
+
+\bigskip
+
+{\bf Définition. } {\it Soient $(G,\cdot),(H,\ast)$ deux groupes. {\bf Un morphisme de groupes} est une application $f:G \to H$
+qui vérifie 
+$$
+\forall x,y \in G, f(x\cdot y)=f(x)\ast f(y)
+$$}
+\fr
+Important: Pour former $x\cdot y$, on utilise l'opération de $G$, et pour former $f(x)\ast f(y)$, celle de $H$.
+
+{\it Exemples.} \\
+1. L'application $\exp : \R \to \R^*_+ : x \mapsto e^x$ est un morphisme de groupes de
+$(\R,+)$ vers $(\R^*_+, \cdot)$, car $e^{x+y} = e^x \cdot e^y$. \\
+2. L'application
+$\R_+^* \to \R: x \mapsto \ln x$ est un morphisme de groupes de $(\R^*_+,\cdot)$ vers $(\R,+)$.
+
+\dr
+{\bf Définition.} \\
+{\it {\bf Un isomorphisme de groupes} est un morphisme de groupes qui est bijectif. \\
+{\bf Un endomorphisme de groupe} est un morphisme d'un groupe vers le même groupe.\\
+{\bf Un automorphisme de groupe} est un endomorphisme de groupe qui est bijectif. \\
+Deux groupes $G,H$ sont appelés {\bf isomorphes} s'il existe un isomorphisme de groupes de $G$ vers $H$.}
+\fr
+
+{\it Exemples.}\\
+1. L'application $\exp : \R \to \R^*_+ : x \mapsto e^x$ est un isomorphisme de groupes de
+$(\R,+)$ vers $(\R^*_+, \cdot)$. Donc les groupes $(\R,+)$ et $(\R^*_+,\cdot)$ sont isomorphes. 
+\\
+2. Si $a$ est un entier, l'application $\Z \to \Z: n \mapsto an$ est un endomorphisme du groupe $(\Z,+)$.\\
+C'est un automorphisme si et seulement si $a=\pm 1$.
+
+\dr
+{\bf Théorème 2.3.} {\it Soit $G$ un groupe, et $x,y,z$ trois éléments quelconques de $G$. \\
+1. Si $xz=yz$, alors $x=y$. \\
+2. Si $zx=zy$, alors $x=y$.}
+
+\bigskip
+
+{\bf Preuve.} 1. On suppose $xz=yz$. Mais alors $(xz)z^{-1} = (yz)z^{-1}$. Donc $x(zz^{-1})=y(zz^{-1})$, ce qui
+donne $x=y$. Pour la partie 2. on procède de manière analogue. \hfill $\Box$.
+\fr
+
+\dr
+{\bf Théorème 2.4.} {\it Soit $f:G \to H$ un morphisme de groupes. Alors
+\\ 1. $f(e_G)=e_H$ \\
+2. $\forall x \in G, f(x^{-1}) = f(x)^{-1}$}
+
+\bigskip
+
+{\bf Preuve.} \\
+1. On a $e_H f(e_G) = f(e_G) = f(e_G e_G) = f(e_G)f(e_G)$, la dernière égalité étant vraie parce
+$f$ est un morphisme. En vertu du théorème qui précède, on peut dire $e_H=f(e_G)$.
+\\
+2. On part de $xx^{-1} = x^{-1}x=e_G$. Donc $f(xx^{-1}) = f(x^{-1}x)=f(e_G)=e_H$. Comme
+$f$ est un morphisme, $f(x) f(x^{-1}) = f(x^{-1})f(x)=e_H$. On peut en déduire que
+$f(x^{-1})$ est l'inverse de $f(x)$. \hfill $\Box$
+\fr
+
+\subsection{Noyau et image d'un morphisme de groupes}
+
+\dr
+{\bf Définition.} {\it Soit $f:G \to H$ un morphisme de groupes. \\{\bf Le noyau de $f$}, noté $\ker f$, est
+l'ensemble des éléménts de $G$ qui sont envoyés sur $e_H$. 
+\\ {\bf L'image de $f$}, notée $\im f$ est l'ensemble des images des éléments de $G$ par $f$.
+$$
+\ker f =\{x \in G | f(x) =e_H \}\subset G \qquad \qquad \im f = \{f(x) | x \in G \}\subset H
+$$}
+\fr
+
+Dire que $y \in \im f$ est équivalent à: $y \in H$ et $\exists x \in G, f(x) = y$.
+
+
+\dr
+
+{\bf Théorème 2.5.} {\it Soit $f : G \to H$ un morphisme de groupes. \\ Alors $\ker f$ est un sous-groupe de $G$ et
+$\im f$ est un sous-groupe de $H$. }
+\bigskip
+
+
+{\bf Preuve.} Montrons d'abord que $\ker f$ est un sous-groupe de $G$. \\
+L'élément neutre de $G$ appartient au noyau, car $f(e_G)=e_H$.\\
+Si $x,y$ sont dans le noyau, alors $f(xy)=f(x)f(y) = e_He_H=e_H$, donc $xy$ est aussi dans le noyau. \\
+Si $x$ est dans le noyau, alors $f(x^{-1}) = f(x)^{-1} = e_H^{-1} = e_H$.
+
+Nous avons bien montré que $\ker f$ est un sous-groupe de $G$.
+
+Montrons maintenant que $\im f$ est un sous-groupe de $H$. \\
+L'élément neutre de $H$ appartient dans l'image, car $e_H=f(e_G)$. \\
+Si $x,y$ sont dans l'image, alors on peut écrire $x=f(a),y=f(b)$, avec $a,b \in G$. Donc
+$xy=f(a)f(b)=f(ab)$, et comme $ab \in G$, on voit que $xy$ est dans l'image. \\
+Si $x$ est dans l'image, alors $f(a)=x$ pour un certain $a$ et alors
+$x^{-1} = f(a^{-1})$, ce qui achève la preuve. \hfill $\Box$
+\fr
+
+Si on a un morphisme de groupes entre deux groupes $G$ et $H$, on construit donc facilement de nouveaux groupes en considérant le noyau
+et l'image de ce morphisme. On obtient un sous-groupe de $G$ (le noyau) et un sous-groupe de $H$ (l'image). En voici une application:
+
+\dr
+{\bf Théorème 2.6.} {\it Pour tout $n \geq 1$, l'ensemble des racines $n$-èmes de l'unité, muni de
+la multiplication des nombres complexes, est un groupe commutatif.}
+\medskip
+
+{\it Rappel.} Une racine $n$-ème de l'unité est un nombre complexe tel que $z^n=1$.
+\bigskip
+
+{\bf Preuve.} On sait que $(\C^*=\C -\{0\},\cdot)$ est un groupe commutatif, d'élément neutre $1$.
+L'application $f: \C \to \C : z \mapsto z^n$ est un endomorphisme du groupe $(\C^*,\cdot)$, car on a clairement
+$(zz')^n = z^n z'^n$. Donc le noyau de cet endomorphisme est un sous-groupe de $(\C^*,\cdot)$.
+Mais le noyau est exactement l'ensemble des nombres complexes non nuls $z$ tels que $z^n=1$.
+C'est exactement l'ensemble des racines $n$-èmes de l'unité. C'est donc un sous-groupe
+de $(\C^*, \cdot)$. Donc, si on munit cet ensemble de la multiplication des nombres
+complexes, on obtient un groupe, qui est également commutatif, car il est sous-groupe
+d'un groupe commutatif. \hfill $\Box$
+\fr
+
+On note $U_n$ le groupe des racines $n$-èmes de l'unité. Il possède exactement $n$ éléments. Ce sont les nombres complexes $z$ de la 
+forme $z = e^{\frac{2\pi i k}{n}}$, avec $k \in \Z$. Bien entendu, si on remplace $k$ par $k+n$, on obtient le même nombre complexe $z$,
+car $e^{2\pi i} = 1$. 
+
+
+\section{Anneaux}
+
+\subsection{Définition d'un anneau }
+
+Nous avons déjà vu que l'ensemble $\Z$, avec l'opération de somme, est un groupe commutatif.
+Mais sur les entiers, il y a une autre opération binaire interne, la multiplication. Elle a notamment les propriétés
+suivantes
+\dr
+$a\cdot(b\cdot c) = (a \cdot b)\cdot c$ (associativité) \\
+$a \cdot 1 = 1 \cdot a = a$ (neutre pour la multiplication) \\
+$a \cdot(b+c) = (a\cdot b) + (a \cdot c)$ et \\ $(a+b)\cdot c = (a \cdot c ) + (b \cdot c)$ (distributivité de la multiplication par rapport à l'addition)
+ \fr
+ 
+ Nous rencontrerons souvent ce type de propriété avec deux lois binaires internes. Nous allons donner
+ une définition très générale, qui correspond à des ensembles appelés {\bf anneaux}.
+ 
+ 
+ 
+ \dr
+{\bf Définition.} {\it Soit $A$ un ensemble muni de deux lois binaires internes, notées $+$ et $\cdot$\\
+ On dit que $(A,+,\cdot)$ est {\bf un anneau} si les propriétés suivantes sont satisfaites:\\
+ 1. $(A,+)$ est un groupe commutatif\\
+ 2. L'opération $\cdot$ est associative \\
+ 3. Il existe un élément $m \in A$ tel que $\forall x \in A, x \cdot m = m \cdot x = x$ \\
+ 4. $\forall x,y,z \in A, x\cdot(y+z) = (x \cdot y) + (x \cdot z)$ et $(x+y)\cdot z = (x \cdot z) + (y \cdot z)$.\\
+  }
+
+ 
+ {\bf Définition.} {\it On dit qu'un anneau est {\bf commutatif} si la loi $\cdot$ est commutative.}
+ \fr
+ 
+ {\it Remarques.} \\ 1. Dans la notation mathématique, on décide que la deuxième opération
+ (souvent appelée la multiplication) est {\bf prioritaire} sur la première opération (souvent appelée l'addition).
+ C'est pourquoi on peut écrire $x\cdot y + x \cdot z$ au lieu de $(x \cdot y) + (x \cdot z)$. \\
+ 2. Comme pour les groupes, on montre que l'élément $m$ tel que $m \cdot x = x \cdot m = x$ est unique. On l'appelle 
+ {\bf le neutre pour la multiplication $\cdot$ }
+
+ 
+ \subsection{Exemples}
+ 
+ $(\Z,+,\cdot)$ est un anneau commutatif. Il en est de même de $(\Q,+,\cdot)$, $(\R,+,\cdot)$ et $(\C,+,\cdot)$.
+ 
+ Il existe des exemples un peu plus étranges. Ainsi, si $E$ est un ensemble, et ${\cal P}(E)$ l'ensemble
+ des sous-ensembles de $E$, alors $({\cal P}(E), \Delta, \cap)$ est un anneau. L'opération $\Delta$
+est la différence symétrique, et $\cap$ l'intersection. On pourra vérifier les détails. En particulier, on 
+verra que l'élément neutre pour $\Delta$ est $\varnothing$, que l'inverse de $A \subset E$ pour $\Delta$
+est $A$, et que l'élément neutre pour $\cap$ est $E$. Cet anneau est un anneau commutatif. Plus tard, nous
+verrons des exemples d'anneaux non commutatifs.
+
+\subsection{Premières propriétés}
+
+\dr
+{\bf Théorème 2.7.} {\it Soit $(A,+,\cdot)$ un anneau. On note $0$ l'élément neutre de l'opération $+$, et on note
+$-x$ l'inverse de $x$ pour cette même opération $+$.\\
+1. $\forall x \in A, \quad 0 \cdot x = x \cdot 0 = 0$ \\
+2. $\forall x,y \in A, \quad x\cdot (-y) = (-x) \cdot y = -(x\cdot y)$ }
+\bigskip
+
+
+{\bf Preuve.} 1. Par distributivité $x \cdot(0+0) = x \cdot 0 + x \cdot 0$. Cela peut aussi s'écrire
+ $x \cdot 0 + 0 = x \cdot 0 + x \cdot 0$. En ajoutant l'inverse (par rapport à la loi $+$) 
+ de $x \cdot 0$ on trouve $0 = x \cdot 0$. On prouve de la même manière que $0= 0 \cdot x$.
+ 
+ 2. On utilise $(-x)\cdot y + x \cdot y = (-x+x)\cdot y = 0$. \hfill $\Box$
+ \fr
+
+ 
+ \dr
+ {\bf Théorème 2.8.} {\it Soit $(A,+ ,\cdot)$ un anneau, et $a_1,\dots, a_m$, $b_1,\dots, b_n$ des
+ éléments de $A$. \\ Si $I$ est un ensemble fini, et $(x_i)_{i\in I}$ une famille d'éléments de $A$
+indexée par $I$, on note $\sum_{i \in I} x_i$ la somme $($pour l'opération $+$ de $A)$ de tous
+les éléments $x_i$. Comme $+$ est une opération commutative, l'ordre des termes n'a pas d'importance.
+
+Alors on a la formule
+$$
+\left( \sum_{i=1}^m a_i \right) \cdot \left( \sum_{j=1}^n b_j \right) = \sum_{(i,j)\in [[1,m]] \times [[1,n]]} a_i \cdot b_j
+$$
+ 
+ Puisque l'ordre dans la somme n'a pas d'importance, on peut aussi écrire
+ $$
+ \left( \sum_{i=1}^m a_i \right) \cdot \left( \sum_{j=1}^n b_j \right) =
+ \sum_{i=1}^m \left(\sum_{j=1}^n a_i\cdot b_j \right)
+ $$
+ et 
+ $$
+ \left( \sum_{i=1}^m a_i \right) \cdot \left( \sum_{j=1}^n b_j \right) =
+ \sum_{j=1}^n \left(\sum_{i=1}^m a_i\cdot b_j \right)
+ $$}
+ 
+ \bigskip
+ 
+ {\bf Preuve.} Utiliser la distributivité de l'anneau. \hfill $\Box$
+ \fr
+ 
+ \subsection{Inversibles d'un anneau}
+ 
+ \dr
+ {\bf Définition.} {\it Soit $(A,+,\cdot)$ un anneau. On note $1$ l'élément neutre pour $\cdot$. {\bf Un élément inversible de $A$} 
+est un élément $x \in A$ tel qu'il existe $y \in A$ avec $x\cdot y = y \cdot x = 1$.}
+\fr
+
+ 
+ {\it Exemples.} \\
+1. Dans l'anneau $\Z$, il y a exactement deux éléments inversibles, à savoir $1$ et $-1$. \\
+ 2. Dans l'anneau $({\cal P}(E), \Delta, \cap)$, il y a un seul élément inversible, à savoir $E$.
+ \\ 3. Dans l'anneau $\Q$, tous les éléments différents de 0 sont inversibles. 
+ 
+ \dr
+ {\bf Théorème 2.9.} {\it Soit $(A,+,\cdot)$ un anneau. \\
+ 1. Le produit de deux éléments inversibles de $A$ est un élément inversible de $A$. \\
+ 2. L'opération $\cdot$ est une opération de groupe sur l'ensemble des éléments inversibles de $A$.}
+ \bigskip
+ 
+ {\bf Preuve.} 1. Soient $x,x'$ deux éléments inversibles de $A$, alors il existe des éléments
+ $y,y'$ de $A$ avec $xy=yx=x'y'=y'x'=1$. Mais alors
+ $(xx')(y'y)=1$ et $(y'y)(xx')=1$, donc $xx'$ est bien inversible.
+ 
+ 2. L'opération $\cdot$ est donc binaire interne sur l'ensemble des éléments inversibles. Il est ensuite
+ très facile qu'il s'agit d'une opération de groupe sur cet ensemble. \hfill $\Box$
+ \fr
+ 
+ \dr
+ {\bf Définition.} {\it Si $A$ est un anneau, on appelle {\bf groupe des inversibles de $A$} l'ensemble
+ des éléments inversibles de $A$, muni de la deuxième opération de $A$. On note ce groupe $A^o$.}
+ \fr
+ 
+ {\it Exemples.} \\ 1. $\Z^o = (\{+1,-1\}, \cdot)$. Ce groupe est isomorphe à $(U_2,\cdot)$.
+ \\ 2. $\Q^o = (\Q^*,\cdot)$. De même $\R^o = (\R^*, \cdot)$. 
+ 
+ \subsection{Le binôme de Newton}
+ 
+ Rappelons que le symbole $C^k_n$ désigne le nombre $\frac{n!}{k!(n-k)!}$, où $k,n$ sont deux entiers avec $0 \leq k \leq n$.
+ 
+ \dr
+ {\bf Théorème 2.10.} {\it Soient $x,y$ deux éléments d'un anneau commutatif $A$ et $n$ un entier naturel. Alors
+ $$
+ (x+y)^n = \sum_{k=0}^n C^k_n x^k y^{n-k} = y^n + n xy^{n-1} + \frac{n(n-1)}{2} x^2y^{n-2} + \cdots
+ + nx^{n-1}y + x^n
+ $$
+ }
+
+ {\it Remarque.} Le terme $C^k_n x^k y^{n-k}$ signifie qu'on additionne $C^k_n$ fois l'élément $x^ky^{n-k}$ 
+ de l'anneau $A$ (les entiers de $\Z$ ne font pas forcément partie de l'anneau $A$).
+  
+ {\bf Preuve.} Par récurrence sur $n$. Si $n=0$, $(x+y)^n=(x+y)^0=1$ et $\sum_{k=0}^0 C^k_nx^ky^{n-k} = C^0_0x^0y^0=1$, 
+ donc la propriété est vraie pour $n=0$.
+ 
+ Supposons maintenant que la formule est vraie pour un entier donné $n$, et prouvons qu'alors elle est aussi vraie
+ pour $n+1$. On peut donc dire que
+ $$
+ (x+y)^n = \sum_{k=0}^n C^k_n x^k y^{n-k}
+ $$
+ Si on multiplie l'équation par $x+y$ on trouve
+ $$
+ (x+y)^{n+1} = (x+y)\sum_{k=0}^n C^k_n x^k y^{n-k}  = x(\sum_{k=0}^n C^k_n x^k y^{n-k}) + y(\sum_{k=0}^n C^k_n x^k y^{n-k})
+ $$
+ On poursuit le calcul par les règles de distributivité
+ $$
+ (x+y)^{n+1} = \sum_{k=0}^n xC^k_n x^k y^{n-k}+ \sum_{k=0}^n yC^k_n x^k y^{n-k}
+ $$
+ Comme on suppose que $A$ est commutatif on a le droit d'écrire
+ $$
+ (x+y)^{n+1} = \sum_{k=0}^n C^k_n x^{k+1} y^{n-k}+ \sum_{k=0}^n C^k_n x^k y^{n+1-k}
+ $$
+ Changeons de variable dans le premier terme
+ $$
+ (x+y)^{n+1} = \sum_{k=1}^{n+1} C^{k-1}_n x^{k} y^{n+1-k}+ \sum_{k=0}^n C^k_n x^k y^{n+1-k}= 
+ y^{n+1} + \sum_{k=1}^n (C^{k-1}_n + C^k_n) x^k y^{n+1-k} + x^{n+1}
+ $$
+ Or on sait que $C^{k-1}_n + C^k_n= C^k_{n+1}$. D'où
+ $$
+ (x+y)^{n+1} = y^{n+1} + \sum_{k=1}^n C^k_{n+1} x^k y^{n+1-k} + x^{n+1} = 
+ \sum_{k=0}^{n+1} C^k_{n+1} x^k y^{n+1-k}
+ $$
+ Ceci démontre la propriété pour l'exposant $n+1$. La preuve par récurrence s'achève ici.
+ \hfill $\Box$
+ 
+ \fr
+ 
+ {\it Généralisation.}\\  Dans la preuve, on a seulement utilisé que $xy=yx$. Donc on n'a pas besoin
+ d'exiger que $A$ soit commutatif, mais seulement que $xy=yx$ pour les deux éléments qui
+ figurent dans la formule du binôme de Newton.
+ 
+ \dr
+ {\bf Corollaire 2.11.} {\it Pour tout $n \geq 0$, on a $\sum_{k=0}^n C^k_n = 2^n$. Pour tout $n \geq 1$, on a $\sum_{k=0}^n (-1)^k C^k_n = 0$. }
+\bigskip
+
+{\bf Preuve.} Pour la première relation, on applique le binôme de Newton avec $x=y=1$. Pour la seconde,
+on prend $x=-1,y=1$. \hfill $\Box$
+\fr
+
+\subsection{Factorisation de $x^n-y^n$}
+
+\dr
+{\bf Théorème 2.12.} {\it Soient $x,y$ deux éléments $(A,+,\cdot)$ un anneau commutatif (ou plus généralement
+deux éléments d'un anneau quelconque avec $x\cdot y=y\cdot x$). Alors pour tout entier $n \geq 1$, on a
+$$
+x^n-y^n = (x-y) \cdot \sum _{k=0}^{n-1} x^k y^{n-1-k}
+$$
+}
+
+{\bf Preuve.} \\Il suffit de développer le membre de droite par distributivité, appliquer $xy=yx$
+et simplifier. \hfill $\Box$
+\fr
+ 
+{\it Remarques.} \\ 1. La célèbre égalité $(x+y)(x-y)=x^2-y^2$ est simplement le cas $n=2$ du théorème
+ci-dessus.\\
+2. Si $y=1$, on trouve $x^n - 1 = (x-1) (x^{n-1} + \cdots + 1)$.
+
+ 
+\section{Corps}
+
+\subsection{Définition et exemples}
+
+\dr
+{\bf Définition.} \\ {\it {\bf Un corps} est un anneau $(A,+,\cdot)$ non réduit à $\{0_A\}$ 
+dans lequel tout $x \in A - \{0_A\}$
+est inversible. Un corps est donc un anneau $A$ pour lequel $(A-\{0\},\cdot)$ est un groupe.
+
+On dit qu'un corps est {\bf commutatif} si la loi $\cdot$ est commutative.}
+\fr
+
+
+{\it Exemples.} Les anneaux $(\Q,+,\cdot), (\R,+,\cdot),(\C,+,\cdot)$ sont tous les trois
+des corps commutatifs. \\
+L'anneau $(\Z,+,\cdot)$ n'est pas un corps, car $2 \not=0$ et $2$ n'est pas inversible dans $\Z$, c'est-à-dire
+il n'existe pas d'entier $n$ avec $2\cdot n = n \cdot 2 = 1$.
+
+{\it Commentaire.} Nous avons vu trois objets algébriques, d'abord les groupes, puis les anneaux et enfin les 
+corps. Dans un groupe $(G,+)$ on peut <<ajouter>> et <<soustraire>> (faire $x+y$ et $x+(-y)$). Dans un anneau,
+on peut <<ajouter>>, <<soustraire>> (comme dans un groupe) mais aussi <<multiplier>> (faire $x \cdot y$). Enfin,
+dans un corps, on peut <<ajouter>>, <<soustraire>>, <<multiplier>> et <<diviser (par autre chose que 0)>>. La division
+de $x$ par $y \not=0$ dans un corps, c'est par définition $x \cdot y^{-1}$ (ou
+$y^{-1} \cdot x$), avec $y^{-1}$ qui désigne l'inverse de $y$. Cet inverse existe précisément parce qu'on est dans un corps.
+
+
+
+
+\subsection{Sommes de progressions géométriques}
+
+Rappelons qu'une progression géométrique est une suite de nombres non nuls $a_0,a_1,\dots$ telle que le rapport
+$\frac{a_{n+1}}{a_n}$ soit constant. Ce rapport est appelé {\bf la raison de la progression géoémtrique}.  Le résultat ci-dessous nous donne une formule pour des
+sommes d'un nombre fini de termes dans une progression géométrique. Nous allons l'énoncer dans un
+cadre très général, à savoir celui d'un corps quelconque.
+
+\dr
+{\bf Théorème 2.13.} {\it Soit $K$ un corps, $n$ un entier $\geq 1$ et $q \in K$ avec $q \not= 1_K$. Alors
+\\
+ $\sum_{k=0}^{n-1} q^k = 1+q+q^2+ \cdots + q^{n-1} = (q^n-1)\cdot ( q-1)^{-1} = (q-1)^{-1} \cdot (q^n -1)$
+ 
+ Ici $(q-1)^{-1}$ désigne l'inverse multiplicatif de $q-1$, qui existe car $K$ est un corps et
+ $q-1 \not= 0$.
+ }
+ 
+ 
+ {\bf Remarque.} Dans les corps usuels commutatifs, c'est-à-dire $\Q,\R,\C$, on écrira évidemment $\frac{q^n-1}{q-1}$ au lieu de
+$(q^n-1)\cdot ( q-1)^{-1}$.
+ 
+ {\bf Preuve.} Comme $K$ est un anneau, et que $q \cdot 1 = 1 \cdot q$, on peut appliquer le
+ résultat de factorisation de $q^n-1^n$. On aura
+ $$
+ q^n-1=q^n-1^n = (q-1)(1+q+\cdots+q^{n-1})
+ $$
+ et aussi
+ $$
+ q^n-1=(1+q+\cdots+q^{n-1})(q-1)
+ $$
+ Si on multiplie la première équation à gauche par $(q-1)^{-1}$, et la seconde équation à droite par
+ $(q-1)^{-1}$, on obtient les résultats voulus. \hfill $\Box$
+ \fr
+ 
+ {\bf Application.} Calculer $2^a + 2^{a+1} + \cdots + 2^{b}$, où $a,b$ sont deux entiers de $\Z$ avec $a \leq b$. 
+ 
+ On reconnaît une progression géométrique de raison $2$. On peut écrire
+ $$
+ 2^a+ 2^{a+1} + \cdots + 2^{b}= 2^a(2^0 + 2^1 + \cdots + 2^{b-a}) = 2^a \frac{2^{b-a+1}-1}{2-1} = 2^{b+1} - 2^a
+ $$
+ 
+ 
+ 
+
+\section{Vocabulaire du chapitre}
+
+
+ \begin{center}
+ \begin{tabular}{llll  l }
+ Un groupe && abélien && l'image\\
+ un anneau && le groupe symétrique && prioritaire \\
+ un corps && un sous-groupe && inversible \\
+ un entier && un morphisme && le groupe des inversibles \\
+ une opération interne && un isomorphisme && le binôme de Newton\\
+neutre && un automorphisme &&une factorisation \\
+inverse && un endomorphisme && une progression géométrique \\
+le module && isomorphes && la raison \\
+commutatif && le noyau && 
+
+ 
+ 
+ 
+ 
+ 
+  \end{tabular}
+ \end{center}
+
+
+
+\section{Exercices}
+
+1. Soient $a,b$ deux éléments quelconques d'un corps $K$. Résoudre dans $K$ l'équation $ax+b=0$ d'inconnue $x$. Résoudre dans $K$ l'équation
+$xa+b=0$.
+
+
+2. Soit $n \geq 2$ et $\omega \in \C - \{1\}$ tel que $\omega^n= 1$. Combien y a-t-il de valeurs pour $\omega$?
+Calculer $1 + \omega + \omega^2 + \cdots + \omega^{n-1}$. 
+
+3. Soit $G$ un groupe. On note 
+$$
+Z(G) = \{ x \in G| \forall y\in G, xy = yx\}.
+$$
+Montrer que $Z(G)$ est un sous-groupe de $G$. Que peut-on dire de $G$ si on  a l'égalité $Z(G) = G$?
+
+4. Soit $(G, \times)$ un groupe fini. Montrer que pour tout $g \in G$, il existe un entier $n >0$ tel que
+$$
+g^n = \underbrace{g \times g \times \cdots \times g}_{n} = e.
+$$
+
+5. Dans un anneau commutatif, calculer $(a+b+c)(-a+b+c)(a-b+c)(a+b-c).$
+
+6. Dans un anneau commutatif, factoriser $xy(y-x) + yz(z-y) + zx(x-z)$.
+
+7. Dans un corps, montrer qu'on a l'implication
+$$
+a_1 a_2 \cdots a_n = 0 \Rightarrow a_1 = 0 \,\, \mathrm{ ou }\,\,  a_2= 0 \,\, \mathrm{ ou }\,\, \cdots \, \mathrm{ ou }\,\, a_n=0.
+$$
+
+8. Soit $K$ un corps commutatif. On suppose que $a,b \in K$ et $x,y \in K-\{0\}$. Donner une  écriture factorisée pour
+$$
+a \cdot x^{-1} + b \cdot y^{-1}.
+$$
+
+9. Soit $K$ un corps commutatif et $x \in K - \{ 0_K, 1_K \}$ ($x$ différent des deux neutres de $K$). Simplifier
+$$
+\displaystyle{\frac{1}{1-\displaystyle{\frac{1}{1-\displaystyle{\frac{1}{1-x}}}}}}.
+$$
+
+10. Dans un corps non commutatif $K$,  on prend $a,b$ avec $b$ non nul. Quel est le sens de  l'écriture $\frac{a}{b}$?
+
+11. Dans un anneau commutatif, calculer
+$$
+(a-b)(a^2+ab+b^2)(a^6 + a^3b^3 + b^6)(a^{18}+a^9b^9 + b^{18}).
+$$
+
+12. Pourquoi le nombre de bijections de $[[1,n]]$ vers lui-même est-il égal à $n!$?
+
+13. Montrer: S'il existe un isomorphisme de groupes $\varphi : G_1 \to G_2$, alors il existe aussi un isomorphisme 
+de groupes $\psi: G_2 \to G_1$.
+
+\end{document}
