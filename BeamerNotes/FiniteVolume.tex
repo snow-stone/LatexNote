@@ -1,0 +1,473 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Presentation
+% LaTeX Template
+% Version 1.0 (10/11/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND THEMES
+%----------------------------------------------------------------------------------------
+
+\documentclass{beamer}
+
+\mode<presentation> {
+
+% The Beamer class comes with a number of default slide themes
+% which change the colors and layouts of slides. Below this is a list
+% of all the themes, uncomment each in turn to see what they look like.
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+%\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+% As well as themes, the Beamer class has a number of color themes
+% for any slide theme. Uncomment each of these in turn to see how it
+% changes the colors of your current slide theme.
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{lmodern}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title[Short title]{Short note on MPI} % The short title appears at the bottom of every slide, the full title is only on the title page
+
+\author{Haining LUO} % Your name
+\institute[] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+{
+ECL \\ % Your institution for the title page
+\medskip
+\textit{haining.luo@doctorant.ec-lyon.fr} % Your email address
+}
+\date{\today} % Date, can be changed to a custom date
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+\begin{frame}
+\frametitle{Overview} % Table of contents slide, comment this block out to remove it
+\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+%	PRESENTATION SLIDES
+%----------------------------------------------------------------------------------------
+%------------------------------------------------
+\section{Finite Volume}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Patankar}
+\begin{block}{4.2.3 The interface conductivity}
+	linear interpolation or harmonic mean ($\Leftarrow$ steady one-dimensional analysis of two conductivities)
+\end{block}
+\begin{block}{4.2.4 Nolinearity (k dependant on T) and iterative solution method}
+	1. Guess of T at all grid points. \\
+	2. From guess get tentative values of the coefficients in the discretization equation. \\
+	3. Solve the equation to get new T. \\
+  4. With New T do step 2 and 3 until convergence criteria is satisfied.
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Patankar}
+\begin{block}{4.2.6 BC on scalar}
+	Three types of BC : \\
+	1. Given boundary temperature T \\
+	2. Given boundary heat flux \\
+	3. Boundary heat flux specified by a heat transfer coefficient and temperature of the surrounding fluid. $q_B=h(T_f-T_B)$
+\end{block}
+\begin{block}{4.2.7 TDMA}
+	memory and time $O(N)$ while general matrix method $O(N^2)$  or $O(N^3)$ 
+\end{block}
+\end{frame}
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Patankar}
+\begin{block}{4.3.2 Explicit, Crank-Nicolson and Fully implicit Schemes : one dimensional conduction}
+	$\Delta t < \frac{\rho c (\Delta x)^2}{2k} $ is the criterion for physical solution of the explicit scheme. 
+	($\Leftarrow$ higher value of T at instant 0 will lead to higher T at $\Delta t$ $\iff$ coefficient positiveness) \\
+	C-N schemes is unconditional stable (not gonna diverge), this doesn't mean however it will always lead to phyiscal solution. Patankar and Baliga (1978). 
+	In this 1D conduction frame work, $ \rho c \frac{\Delta x}{\Delta t} - \frac{k}{\Delta x} > 0$ is the criteria for physical solution.\\
+
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Patankar}
+\begin{block}{4.3.2 Explicit, Crank-Nicolson and Fully implicit Schemes : one dimensional conduction (continue)}
+	Fig 4.5 \\
+	When $\Delta t$ is small (normally the $T$ variation is linear to $\Delta t$ when $\Delta t$ is small), C-N just mean that during the time interval variable varies linearly with t. $\Rightarrow$ C-N is good when variation is linear.\\
+	Over a larger time intervall, the variation is done expotentially followed by a flat tail. Thus the assumptions made in the fully implicit scheme are thus closer to reality than the linear profile used in the C-N for large time step. \\
+	Expotential scheme combines advantages of full implicit and C-N and disadvantages of neither !
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Patankar}
+\begin{block}{4.4.3 Resolution of discretized equation}
+\begin{itemize}
+	\item Direct Method (not-iterative) \\
+	Acceptable with a linear problem.
+	\item Iterative methods \\
+	Start from an initial guess and improve the solution. But : \\
+	Must balancing between the effort required to calculate the coefficients and that spent on solving the equations.
+\end{itemize}
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Patankar}
+\begin{block}{Iterative : Gauss-Seidel point-by-point method}
+\begin{itemize}
+	\item Scarborough criterion (only a sufficient condition)\\
+	implications : \\
+	a. negative coefficients are not good for G-S convergence. \\
+	b. when Rule 4 is satisfied, the boundary condition will finally helps to satisfied the this criterion ($\Leftarrow$ $\sum{|a_{nb}|}$ is calculated on only the unknown neighbors).
+\end{itemize}
+\end{block}
+
+\end{frame}
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Patankar}
+\begin{block}{4.3.3 Fully implicit Schemes : one dimensional conduction (continue)}
+	$\Delta t \to \infty$ equation reduce to steady state equation.
+	A fully implicit scheme realize the variation at the very beginning of time step, if $k_p$ depended on temperature, it should be iteratively recalculated from $T_p$ exactly as steady state procedure. 
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Patankar}
+\begin{block}{4.5 Relaxation}
+	Sometimes solution of a steady-state problem is obtained through the use of the discretizatio equation for a corresponding unsteady situation. Then the "time steps" become the same as iterations (or the number of iterations).\\
+	smaller time step $\iff$ stronger underrelaxation \\
+	negative time step $\iff$ overrelaxation
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Patankar}
+\begin{block}{5.2-1 Steady 1D convection and diffusion}
+	A piecewise-linear profile of $\phi$ is assumed thus convection term is linearly interpolated and diffusion term ($\frac{d\phi}{dx}$) is approximated via central-difference [to get the devrivative at the center of two points, using the value at two points and the distance between] \\
+	When $\frac{F}{D}$ is big, coefficient positiveness may be violated. Closer look at $\frac{F}{D} = \frac{\rho u \Delta x}{\Gamma}$, it is the Reynolods number if $\Gamma$ is the dynamic viscosity.When the Reynolds depending on $\Delta x$ is big, there will be a problem solving u-momentum equation. If $D=0$, then $a_P=0$ resolution of the problem (Euler flow) requires other technique.
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Patankar}
+\begin{block}{5.2-2 Upwind Scheme}
+	Fig 5.2\\
+	A tank-and-tube interpretation [flow through tube $\iff$ convection, conduction through tank $\iff$ diffusion]: Flow temperature in the tube prevails in the tank on the upstream side $\iff$ Temperature at control volume surface is assumed to be the same as the value of upwind control volume center $\Rightarrow$ convective flux at surfaces will be evaluated by shifting to the $\phi$ of the upwind volume. 
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Patankar}
+\begin{block}{5.2-3 Exact Solution}
+	Analytic solution for 1D convection-diffusion (without any interpolation or discretization, $\phi$ is temperature):
+$	 x=0  \phi=\phi_0, $ 
+$	 x=L  \phi=\phi_L, $ 
+$	 \frac{\phi - \phi_0}{\phi_L-\phi_0} = \frac{exp(Pe \cdot x/L)-1}{exp(Pe)-1}$ \\
+	where $Pe=: \frac{\rho u L}{\Gamma}$ .\\
+	When Pe is small, the profile depends linearly only on $\frac{x}{L}$: $profile=linear(x/L)$\\
+	When Pe is no longer small, Taylor developpement is not valid, $profile=f(Pe,\frac{x}{L})$ and $f$ is nolinear on neither of the variables.\\
+
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Patankar}
+\begin{block}{5.2-3 Exact Solution (const.)}
+
+Where there are things to note down: \\
+\begin{itemize}
+	\item Pe can be negative.
+	\item Exponential Scheme is then based this analytic profile to do interpolation.
+	\item Reducing $L$ (or reducing $\Delta x$) to sufficiently small value will result to small $Pe$ $\iff$ linear profile. It's costly but central difference should work and error will eventually be $O(\Delta x)^2$ predicted by Taylor series.
+\end{itemize}
+\end{block}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Patankar}
+
+\begin{block}{Page 120, Staggered grid advantages in finite volume formulation}
+\begin{itemize}
+\item when continuity eq. is integrated [from east to west], we got eq. of flux. $ sum of all faces <\vec{U}, \vec{S}>=0  $ \\
+
+if velocity is not at the interface, the continuity eq. (in the FV formulation) must be satisfied by the interpolated velocity at boundary of control volume. Thus risk to be wavy. How ever in a stagered grid, velocity is on the frontiers of the volume thus will never be zig-zag. \\
+
+
+
+
+\end{itemize}
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Patankar (continue)}
+\begin{block}{Page 120, Staggered grid advantages in finite volume formulation Cont.}
+\begin{itemize}
+
+\item when pressure gradient is integrated [from east to west], the primitive is pressure $\cdot$ surface [west - east]. Thus difference: $ tensor sum : p_i S_i = 0$ \\
+
+pressure is a surface force and pressure difference between two surfaces results in driving the velocity: pressure grid is then at the surface of U-grid. In cololated grid, pressure would be interpolated and put into the momentum eq. thus risk to be wavy.
+\end{itemize}
+\end{block}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Patankar (continue)}
+\begin{block}{Page 120, algorithme to solve N-S}
+\begin{itemize}
+\item if the pressure is given then the solution of momentum eq. can be obtained.
+
+So how to get the pressure right?!
+
+\end{itemize}
+\end{block}
+\end{frame}
+%------------------------------------------------
+
+
+\begin{frame}
+\frametitle{concerning BC}
+Fig 4.3 Half-control volume \\
+Fig 4.14 and 6.7-3 \\
+
+Grid first => cell must be center ?
+Cell center first, then grid ? \\
+
+
+5.5-2 Outflow boundary condition
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Boundary layer}
+It is the constant cross-flow pressure (towards walls) that makes boundary layer problem 1D.
+
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{list}
+
+5.2-7 A,B,P coefficient have a general relation. \\
+
+5.3-1 Is there any flow do not satisfy the continuity equation? Yes, the one that is not corrected. But still the rule 4?
+
+5.6 False diffusion. Upwind is not that bad.
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Ferziger}
+
+\begin{block}{Basic}
+\begin{itemize}
+\item 1.3 covariant or contravariant. \\
+Representing a uniform field by polar-cylindrial coordinate system will have singularity at the origin.
+
+\item 1.4 P\_rho*g*z
+Combining the pressure P with the hydrostatic pressure (by adding gravity as body force) in a gradient form, we have a "pressure head" as p-rho*g*z.
+In variable density flows (with cosntant gravity), rho*g\_i can be put into two parts and the first part can also be added into the gradient form of pressure.
+Note: the stress that one submitted is the opposite of the one impose at exterior (third principle of Newton), so the vector change but not the tensor ! Because force = tensor * normal vector. If normal vector changes sign, force changes sign.
+\end{itemize}
+\end{block}
+
+\end{frame}
+
+
+
+
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Multiple Columns}
+\begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
+
+\column{.45\textwidth} % Left column and width
+\textbf{Heading}
+\begin{enumerate}
+\item Statement
+\item Explanation
+\item Example
+\end{enumerate}
+
+\column{.5\textwidth} % Right column and width
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lectus nisl, ultricies in feugiat rutrum, porttitor sit amet augue. Aliquam ut tortor mauris. Sed volutpat ante purus, quis accumsan dolor.
+
+\end{columns}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Theorem}
+\begin{theorem}[Mass--energy equivalence]
+$E = mc^2$
+\end{theorem}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Theorem}
+\begin{theorem}[Mass--energy equivalence]
+$E = mc^2$
+\end{theorem}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Table}
+\begin{table}
+\begin{tabular}{l l l}
+\toprule
+\textbf{Treatments} & \textbf{Response 1} & \textbf{Response 2}\\
+\midrule
+Treatment 1 & 0.0003262 & 0.562 \\
+Treatment 2 & 0.0015681 & 0.910 \\
+Treatment 3 & 0.0009271 & 0.296 \\
+\bottomrule
+\end{tabular}
+\caption{Table caption}
+\end{table}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile] % Need to use the fragile option when verbatim is used in the slide
+\frametitle{Verbatim}
+\begin{example}[Theorem Slide Code]
+\begin{verbatim}
+\begin{frame}
+\frametitle{Theorem}
+\begin{theorem}[Mass--energy equivalence]
+$E = mc^2$
+\end{theorem}
+\end{frame}\end{verbatim}
+\end{example}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Figure}
+Uncomment the code on this slide to include your own image from the same directory as the template .TeX file.
+%\begin{figure}
+%\includegraphics[width=0.8\linewidth]{test}
+%\end{figure}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile] % Need to use the fragile option when verbatim is used in the slide
+\frametitle{Citation}
+An example of the \verb|\cite| command to cite within the presentation:\\~
+
+This statement requires citation \cite{p1}.
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{References}
+\footnotesize{
+\begin{thebibliography}{99} % Beamer does not support BibTeX so references must be inserted manually as below
+\bibitem[Smith, 2012]{p1} John Smith (2012)
+\newblock Title of the publication
+\newblock \emph{Journal Name} 12(3), 45 -- 678.
+\end{thebibliography}
+}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\Huge{\centerline{The End}}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\end{document} 

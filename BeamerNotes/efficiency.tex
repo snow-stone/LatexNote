@@ -1,0 +1,395 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Presentation
+% LaTeX Template
+% Version 1.0 (10/11/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND THEMES
+%----------------------------------------------------------------------------------------
+
+\documentclass{beamer}
+
+\mode<presentation> {
+
+% The Beamer class comes with a number of default slide themes
+% which change the colors and layouts of slides. Below this is a list
+% of all the themes, uncomment each in turn to see what they look like.
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+%\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+% As well as themes, the Beamer class has a number of color themes
+% for any slide theme. Uncomment each of these in turn to see how it
+% changes the colors of your current slide theme.
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{lmodern}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title[Notes]{Efficiency} % The short title appears at the bottom of every slide, the full title is only on the title page
+
+\author{Haining LUO} % Your name
+\institute[] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+{
+ECL \\ % Your institution for the title page
+\medskip
+\textit{haining.luo@doctorant.ec-lyon.fr} % Your email address
+}
+\date{\today} % Date, can be changed to a custom date
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+\begin{frame}
+\frametitle{Overview} % Table of contents slide, comment this block out to remove it
+\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+%	PRESENTATION SLIDES
+%----------------------------------------------------------------------------------------
+\section{work efficiency}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Bash win10}
+\begin{itemize}
+
+	\item for graphic interface, install Ximg on windows, run it. And lance in the bash linux sub-os terminal with command : \$DISPLAY=:0 texmaker
+	
+	\item failed to get vpn work on linux sub-os. Remedy : get vpn to work on windows.
+
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Latex linux}
+\begin{itemize}
+
+	\item \$ sudo apt-get install texmaker
+	
+	\item \$ sudo apt-get install latex-beamer
+	
+	\item for the language package used by Pauly : \$ sudo apt-get install tex-live-lang-french  
+	
+	\item for other fonts when using templates of journals: \$ sudo apt-get install texlive-fonts-recommended
+
+	\item generate pdf from *.tex : \$ pdflatex *.tex
+
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{EasyBuild}
+\begin{itemize}
+
+	\item   plateform and env
+
+			Ubuntu 14.04.5 LTS trusty (win10 sub-system)\\
+			gcc (system)\\
+			g++ (system)\\
+			anaconda-1.4.0 (for python)\\
+			lua-5.1.4.8\\
+			Lmod-6.1
+			
+	\item	steps \\
+			install anaconda \\
+			install lua ;
+			export PATH to $.../lua/bin$ \\
+			install Lmod ;
+			export PATH to $.../lmod/6.1/libexec$ ;
+			source $.../lmod/6.1/init/bash$ ;
+			$export \ LMOD\_CMD=.../lmod/6.1/libexec/lmod$\\
+			python $bootstrap\_eb.py$ PrefixofEasyBuild
+
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Easybuild config}
+\begin{itemize}
+
+	\item In config file $/home/hluo/.config/easybuild/config.cfg$
+	you can then specify : \\
+	buildpath = $/tmp/dir$ \\
+	installpath=$/home/hluo/software/dir$\\
+	etc...\\
+	and check by \$ eb --show-config (after \$ module load EasyBuild)
+	
+	\item for \$ module load EasyBuild to work
+	
+	need to make sure that "module knows where easybuild is" by using "\$ module use $/home/hluo/software/easybuild/modules/all$" or by env variable \$MODULEPATH \\
+	
+	when seperating installpath with the installpath of easybuild, after installation by eb you need to have the installpath known by modules.
+
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Newton}
+\begin{itemize}
+
+	\item sinfo : info des neouds
+
+	\item	sinfo | grep idle : available neouds.
+
+	\item	scontrol show reservation 
+
+	\item	sprio : show priority of all the job in queue.
+
+	\item	squeue :
+
+	\item	module show icc/2015.1.133-GCC-4.9.2
+
+	\item sudo update-alternatives --config gcc
+
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{visu}
+	configure the x2goclient \\
+	connect visu \\
+	use another command to call paraview : vglrun paraview \\
+	
+	and it works well even in my room!
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Pointwise}
+	bash pw-V17.3R5-linux\_x86\_64-jre.sh -c \\
+	-c will do the installation with consel/terminal instead of a GUI written by Java, has encountered problem with compatibility of jre
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Inkscape}
+	add extension for latex formular input:\\
+	\$ sudo apt-get install texlive pstoedit \\
+	it will then be : Extensions$->$Render$->$LaTeX Formula
+\end{frame}
+
+%------------------------------------------------
+
+
+\begin{frame}
+\frametitle{ssh alias}
+\begin{itemize}
+	\item Creat alias for remote machine \\
+	      Edit \~\thinspace .ssh/config (if there is none, creat one) like this :\\
+	      Host zaurak \\
+	      	HostName 156.18.40.236 \\
+	  	Port 22 \\
+		User hluo \\ 
+		PubkeyAuthentication yes \\
+	\item Usage : ssh zaurak (auto-completation) \\
+		$\iff$ ssh hluo@156.18.40.236
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{ssh acess without passwd and transfer files}
+\begin{itemize}
+	\item Generate and upload public key (fingerprint) of the local machine to get acess on a remote without passwd:\\
+	          ssh-keygen -t rsa \\
+		  ssh-copy-id zaurak
+		  
+	\item Copy file/dir from remote (auto-completation if public key of current machine is on the remote): \\
+			scp zaurak:remote\_file local\_dir \\
+			scp -r zaurak:remote\_dir local\_dir \\
+			or \\
+			scp local\_file zaurak:remote\_dir \\
+			scp -r local\_dir zaurak:remote\_dir \\
+			Remote files can be manipulated like local files by preceding the alias of remote (Ex: zaurak)
+\end{itemize}
+\end{frame}
+%------------------------------------------------
+
+%------------------------------------------------
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Multiple Columns}
+\begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
+
+\column{.45\textwidth} % Left column and width
+\textbf{Heading}
+\begin{enumerate}
+\item Statement
+\item Explanation
+\item Example
+\end{enumerate}
+
+\column{.5\textwidth} % Right column and width
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lectus nisl, ultricies in feugiat rutrum, porttitor sit amet augue. Aliquam ut tortor mauris. Sed volutpat ante purus, quis accumsan dolor.
+
+\end{columns}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Theorem}
+\begin{theorem}[Mass--energy equivalence]
+$E = mc^2$
+\end{theorem}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Theorem}
+\begin{theorem}[Mass--energy equivalence]
+$E = mc^2$
+\end{theorem}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Table}
+\begin{table}
+\begin{tabular}{l l l}
+\toprule
+\textbf{Treatments} & \textbf{Response 1} & \textbf{Response 2}\\
+\midrule
+Treatment 1 & 0.0003262 & 0.562 \\
+Treatment 2 & 0.0015681 & 0.910 \\
+Treatment 3 & 0.0009271 & 0.296 \\
+\bottomrule
+\end{tabular}
+\caption{Table caption}
+\end{table}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile] % Need to use the fragile option when verbatim is used in the slide
+\frametitle{Verbatim}
+\begin{example}[Theorem Slide Code]
+\begin{verbatim}
+\begin{frame}
+\frametitle{Theorem}
+\begin{theorem}[Mass--energy equivalence]
+$E = mc^2$
+\end{theorem}
+\end{frame}\end{verbatim}
+\end{example}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Figure}
+Uncomment the code on this slide to include your own image from the same directory as the template .TeX file.
+%\begin{figure}
+%\includegraphics[width=0.8\linewidth]{test}
+%\end{figure}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile] % Need to use the fragile option when verbatim is used in the slide
+\frametitle{Citation}
+An example of the \verb|\cite| command to cite within the presentation:\\~
+
+This statement requires citation \cite{p1}.
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{References}
+\footnotesize{
+\begin{thebibliography}{99} % Beamer does not support BibTeX so references must be inserted manually as below
+\bibitem[Smith, 2012]{p1} John Smith (2012)
+\newblock Title of the publication
+\newblock \emph{Journal Name} 12(3), 45 -- 678.
+\end{thebibliography}
+}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\Huge{\centerline{The End}}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\end{document} 

@@ -1,0 +1,423 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Presentation
+% LaTeX Template
+% Version 1.0 (10/11/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND THEMES
+%----------------------------------------------------------------------------------------
+
+\documentclass{beamer}
+
+\mode<presentation> {
+
+% The Beamer class comes with a number of default slide themes
+% which change the colors and layouts of slides. Below this is a list
+% of all the themes, uncomment each in turn to see what they look like.
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+%\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+% As well as themes, the Beamer class has a number of color themes
+% for any slide theme. Uncomment each of these in turn to see how it
+% changes the colors of your current slide theme.
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{lmodern}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title[Short title]{Short note on MPI} % The short title appears at the bottom of every slide, the full title is only on the title page
+
+\author{Haining LUO} % Your name
+\institute[] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+{
+ECL \\ % Your institution for the title page
+\medskip
+\textit{haining.luo@doctorant.ec-lyon.fr} % Your email address
+}
+\date{\today} % Date, can be changed to a custom date
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+\begin{frame}
+\frametitle{Overview} % Table of contents slide, comment this block out to remove it
+\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+%	PRESENTATION SLIDES
+%----------------------------------------------------------------------------------------
+\section{OpenFOAM}
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Concels Quentin}
+
+\begin{block}{non-structured grid solver of openfoam}
+try slip condition (potentialFoam verify the boundary condition is verified) \\
+see to the preconditioner for the poisson equation ! \\
+try implicit time advancing, not the explicit euler \\
+\end{block}
+
+\begin{block}{mesh}
+visualize the grid skewness in Pointwise and improve quality \\
+try to do a mesh with demi-circle structured !!!\\
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Concels Alex}
+
+Grid analysis, different resolution, residue, order of precision...
+try longer tunnel get slices at 1D 2D 3Diametre, draw with paraview, put together by Inkscape
+
+\end{frame}
+
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Concels Satish}
+
+Just make one thing work and then work beside (RAS OR LES).
+Draw the pictures to gain confidence.
+
+begin from the very top of the program (postprocessing) not from the base (templates confuses!).
+
+Compares first the profiles (phisics) then the divergence something like that.
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Concels Satria}
+
+use simflow (windows version of snappyHexMesh) to get the wright parameters and then work on linux to get greater number of mesh. \\
+
+eclipse can be used to trace the variables in Openfoam. There is a tutorial "HowTo Use OpenFOAM with Eclipse"
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Concels Lu}
+
+Fillet may not be a problem. If the mesh orthonogality is good, then we have good result.
+
+use freecad to get a *.stl. Try snappyHexMesh.
+
+Begin to write post-treamtement to get better understanding of the OpenFOAM work flow.
+
+Runge-Kutta may need to be compiled by myself
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Install swak4Foam when OpenFOAM is built by Easybuild}
+
+\begin{block}{installation}
+module load OpenMPI/1.10.2-GCC-4.9.3-2.25
+
+export FOAM\_INST\_DIR= \\
+/home/hluo/.local/easybuild/software/OpenFOAM/3.0.0-foss-2016a
+
+source ~/.local/easybuild/software/OpenFOAM/3.0.0-foss-2016a/OpenFOAM-3.0.0/etc/bashrc.orig.eb
+
+cd swak4Foam
+
+ln -s swakConfiguration.automatic swakConfiguration
+
+cd maintainanceScripts
+
+./compileRequirements.sh
+
+export PATH=/home/hluo/.local/easybuild/software/OpenFOAM/3.0.0-foss-2016a/swak4Foam/maintainanceScripts/privateRequirements/bin:\$PATH
+
+\end{block}
+
+\end{frame}
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Install swak4Foam when OpenFOAM is built by Easybuild (continue)}
+
+\begin{block}{installation}
+
+cd swak4Foam
+
+./Allwmake
+
+if you want to use swakCoded-function object or compile software based on swak set the environment variable SWAK4FOAM\_SRC to /home/hluo/.local/easybuild/software/OpenFOAM/3.0.0-foss-2016a/swak4Foam/Libraries (most people will be fine without setting that variable)
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{OpenFOAM-school2016-Reims}
+
+\begin{block}{ESI}
+Presented by ESI Anshul Gupta. ESI runs simulation like car crash test.
+\end{block}
+
+\begin{block}{Strong point in OpenFOAM}
+multiphase, bubbles, film of flow from a cynlinder edge (sph?) \\
+scalability : run with many many cores and perfomance is not degraded. (than fluent)
+\end{block}
+
+\begin{block}{Mesh in openfoam (snappyHexMesh?)} 
+1. castellation (cartesian) \\
+2. boundary fitting up \\
+3. layering
+\end{block}
+
+Dakota couple with OpenFOAM to do optimazation.\\
+
+Q: mesh can be in binary ? \\
+Answer Yes, what is in polymesh can be made in binary.
+\end{frame}
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{OpenFOAM-school2016-Reims (continue)}
+POZZOBON Victor
+
+Q on suspective excess of boundary conditions of OpenFOAM. \\
+Answer : Like PISO algorithm, other algorithms splitting operators to solve N-S equation has technique details like using scattered grid or collorated grid.
+
+Q laminar solver for turbulent flow \\
+Answer : icoFoam can face numeric problem when used to simulate turbulent flow (il ne faut pas que le terme visceux soit trop petit [reynolds grand], for numerical issus to immerge).  \\
+	Ex. Peclet$<$1, advection with center difference scheme is stable.
+	Support. Cours Volume Finis M.Stukov Alexei of IMFT.
+
+Q mode debug of OpenFOAM \\
+Answer : wmake did give somme information and there are things highlighted. Victor personally did try this.
+
+\end{frame}
+
+\begin{frame}
+\frametitle{OpenFOAM-school2016-Reims (continue)}
+scotch : divide the domaine for paralleral use. \\
+ptscotch : parallise the process that scotch does.
+
+Q how do you deal with mesh generator?
+Answer : use salome to do the mesh and plot histogramme of the mesh size to see if there are very small meshes. To see where they are in the global mesh. If is is bad located (may lead to CFL $>$ 1) then ask Salome gentillement to deal with it.
+
+Q paraview for post-processing?
+Answer : personnally victor use visite (harder to install) and use python to clue all together the post-processing.
+\end{frame}
+
+\begin{frame}
+\frametitle{OpenFOAM-school2016-Reims (continue)}
+Q speciaux flux/ spurious flux
+Answer : when the problem gets complicated, the solver may not perform well. Always good habit to check if mass and energy is conserved (though finite volume formulation is based on conservation law, maybe numerical problems). He has numerical problems solving the pressure (his thesis Page 99). He verified that energy is well conserved and that at least gain confidence of the result.
+
+Good Habit:
+Always do a mesh convergence analysis and time step convergence anaylsis. Plot the probed value. Residue, modify relaxation coefficient.
+If necessary mass and energy conservation.
+$\Rightarrow$ to gain confidence of the result.
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{SnappyHexMesh}
+... (how to set) ... \\
+Need one blockMesh which defines a block big enough including the geometry that you want to mesh.\\
+And the snappyHexMeshDict to do the mesh (need to place a point inside the volume of the geometry).
+
+After the setting:
+\$ blockMesh
+a polyMesh in ./constant is generated 
+\$ snappyHexMesh \\
+...
+generates polymesh in time dir ex: 0.001 0.002 0.003.
+Take the last one and copy the polyMesh/* to ./constant/polyMesh (do not overwrite the blockMeshDict)\\
+
+\$ paraFoam ... crashes because the boundary setting is not right !
+
+Go to constant/polyMesh and modify the "boundary". See other faces that blockMesh defines are there with nFaces=0. Delete them and ajust the header of dict indicating the actual number of boundary entries. If there is actually just 4, make it 4 otherwise paraview will complain.
+
+\end{frame}
+
+
+
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Multiple Columns}
+\begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
+
+\column{.45\textwidth} % Left column and width
+\textbf{Heading}
+\begin{enumerate}
+\item Statement
+\item Explanation
+\item Example
+\end{enumerate}
+
+\column{.5\textwidth} % Right column and width
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lectus nisl, ultricies in feugiat rutrum, porttitor sit amet augue. Aliquam ut tortor mauris. Sed volutpat ante purus, quis accumsan dolor.
+
+\end{columns}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Theorem}
+\begin{theorem}[Mass--energy equivalence]
+$E = mc^2$
+\end{theorem}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Theorem}
+\begin{theorem}[Mass--energy equivalence]
+$E = mc^2$
+\end{theorem}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Table}
+\begin{table}
+\begin{tabular}{l l l}
+\toprule
+\textbf{Treatments} & \textbf{Response 1} & \textbf{Response 2}\\
+\midrule
+Treatment 1 & 0.0003262 & 0.562 \\
+Treatment 2 & 0.0015681 & 0.910 \\
+Treatment 3 & 0.0009271 & 0.296 \\
+\bottomrule
+\end{tabular}
+\caption{Table caption}
+\end{table}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile] % Need to use the fragile option when verbatim is used in the slide
+\frametitle{Verbatim}
+\begin{example}[Theorem Slide Code]
+\begin{verbatim}
+\begin{frame}
+\frametitle{Theorem}
+\begin{theorem}[Mass--energy equivalence]
+$E = mc^2$
+\end{theorem}
+\end{frame}\end{verbatim}
+\end{example}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Figure}
+Uncomment the code on this slide to include your own image from the same directory as the template .TeX file.
+%\begin{figure}
+%\includegraphics[width=0.8\linewidth]{test}
+%\end{figure}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile] % Need to use the fragile option when verbatim is used in the slide
+\frametitle{Citation}
+An example of the \verb|\cite| command to cite within the presentation:\\~
+
+This statement requires citation \cite{p1}.
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{References}
+\footnotesize{
+\begin{thebibliography}{99} % Beamer does not support BibTeX so references must be inserted manually as below
+\bibitem[Smith, 2012]{p1} John Smith (2012)
+\newblock Title of the publication
+\newblock \emph{Journal Name} 12(3), 45 -- 678.
+\end{thebibliography}
+}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\Huge{\centerline{The End}}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\end{document} 

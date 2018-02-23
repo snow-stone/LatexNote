@@ -1,0 +1,360 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Presentation
+% LaTeX Template
+% Version 1.0 (10/11/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND THEMES
+%----------------------------------------------------------------------------------------
+
+\documentclass{beamer}
+
+\mode<presentation> {
+
+% The Beamer class comes with a number of default slide themes
+% which change the colors and layouts of slides. Below this is a list
+% of all the themes, uncomment each in turn to see what they look like.
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+%\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+% As well as themes, the Beamer class has a number of color themes
+% for any slide theme. Uncomment each of these in turn to see how it
+% changes the colors of your current slide theme.
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{lmodern}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title[Short title]{Learning C++} % The short title appears at the bottom of every slide, the full title is only on the title page
+
+\author{Haining LUO} % Your name
+\institute[] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+{
+ECL \\ % Your institution for the title page
+\medskip
+\textit{haining.luo@doctorant.ec-lyon.fr} % Your email address
+}
+\date{\today} % Date, can be changed to a custom date
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+\begin{frame}
+\frametitle{Overview} % Table of contents slide, comment this block out to remove it
+\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+%	PRESENTATION SLIDES
+%----------------------------------------------------------------------------------------
+\section{Stanford CS107}
+%------------------------------------------------
+\begin{frame}
+\frametitle{pointer and array name}
+
+$array = \&array[0]$ \\
+more generally $array+k = \&array[k]$ \\
+$ \ast array = array[0]$ \\
+$ \ast (array+k) = array[k]$ \\
+
+Note that C and C++ does not check if the indice is in legal range: \\
+Ex:\\
+int array[10]
+
+$array[-2]=2;$ // may work may crashes with memory conflit but compiler will 
+not say -2 is a illegal indice.  
+
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{MIT - "is a" \& "has a"}
+\begin{itemize}
+	\item inheritance defines "is a" relationship.
+	\item "has a" relationship should be implemented by data members.\\
+	Ex. Vehicle is not a string(liscence) whereas vehicle has a liscence(string).
+	\item programming by inheritance is programming by difference.
+\end{itemize}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Polymorphism}
+\begin{itemize}
+	\item One object may have many "shapes" : types actually. If one function is expecting a Vehicle, we can safely pass it a Car type/object. 
+	\item In terms of pointer and reference : anywhere you can use a Vehicle *, you can use a Car *.
+\end{itemize}
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Polymorphism(cont.)}
+	Car c("VANITY", 2003);\\
+	Vehicle *vPtr = \&c; // value(Vehicle *vPtr)=eval(\&c) vPtr is a pointer and its value is the adress of c (a Car object)\\
+	cout << vPtr -> getDesc(); // $ptr->member \equiv (*ptr).member $\\
+	Because it is a Vehicle object pointer, it will call the Vehicle version of getDesc(). How to make it call the getDesc() of Car (for it is a Car actually)? Answer is to add keyword virtural in front of getDesc() in Vehicle class definition:\\
+	class Vehicle{ \\
+		...\\
+		virtual constant string getDesc() {...};\\
+};
+	
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Polymorphism(cont.)}
+	references are implicitly using pointers, the same issue applies to :\\
+	Car c("VANITY", 2003);\\
+	Vehicle \&v = c; // value(\&v)=eval(\&c) v is a reference and its value is the adress of c (converting a Car object to a Vehicle reference, do not need to add \& at the right hand) \\
+	cout << v.getDesc(); // v is then acting as a object! With the same reference as c but the referencing type is always Vehicle : an alias of the mother type.\\
+	This will only call the Car version of getDesc() only if this method is declared as virtual in Vehicle.
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Pure virtual method}
+A pure virtual method is a virtual method declared in the base class that omits its definition.
+	class Vehicle{ \\
+		...\\
+		virtual constant string getDesc() = 0 ;// pure virtual \\
+};
+
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Scope and Memory}
+A variable out of scope is no longer available $=$ its life has ended. Therefore even if the precise adress is stored (ptr) is in scope, dereference ptr with the proper type, the value is not garanteed to be the right one.
+;
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Scope and Memory(cont.)}
+operator new allocates memory util you delete it and the return value is a pointer: \\
+
+int $\ast x$ = new int; // this allocates memory at heap.\\
+delete x;         // delete the pointer after usage. \\
+
+int x; // this just allocates memory at stack. \\
+
+Note: 1. after "new", think to de-allocate the memory.\\
+	  2. don't "delete" twice the memory. \\
+	  3. "delete" can only de-allocate the memory allocated by "new" \\
+	  4. allocating memory for an array on stack: size must be constant. Whereas "int $\ast arr$ = new int[n]" where n is a variable. \\
+	
+	   
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Scope and Memory(cont.)}
+	  5. delete an array allocated by new[] : delete[] arr;\\
+	  6. "new" can allocat object instance. Deleting the object pointer after allocating with "new". The program will call the desctuctor. When the object goes out of scope, the program will call descructor.\\
+	  7. "new" and "delete" can be implemented in the constructor and desctructor so to be light in the main programming.\\
+	  8. defaut copy constructor will react on the reference? Why the name Wapper? or P4 the integer class and integer wapper class.
+\end{frame}
+%------------------------------------------------
+\section{Effective C++}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Introduction}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Item1}
+It is four languages actually : C ; object-oriented C++ ; template C++ ; the STL
+\end{frame}
+
+\begin{frame}
+\frametitle{Item2}
+Use the least of macros like \#define \\
+Only use \#include (essential) and \#ifdef / \#ifnded (to help the compilation)
+\end{frame}
+
+\begin{frame}
+\frametitle{Item3}
+Use const whenever possible. \\
+syntax of const pointers (two possibilities) : what's pointed to is const or pointer itself is const. \\
+
+It has sense to have a function returning const : to avoid conversion made by typo like "if(a$\ast$b=c)" which should have been a comparison "==" \\
+
+const Member functions
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Item4}
+Make sure all constructors initialize everything in an object. \\
+
+assignment and initialization
+
+\end{frame}
+
+
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Multiple Columns}
+\begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
+
+\column{.45\textwidth} % Left column and width
+\textbf{Heading}
+\begin{enumerate}
+\item Statement
+\item Explanation
+\item Example
+\end{enumerate}
+
+\column{.5\textwidth} % Right column and width
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lectus nisl, ultricies in feugiat rutrum, porttitor sit amet augue. Aliquam ut tortor mauris. Sed volutpat ante purus, quis accumsan dolor.
+
+\end{columns}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Theorem}
+\begin{theorem}[Mass--energy equivalence]
+$E = mc^2$
+\end{theorem}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Theorem}
+\begin{theorem}[Mass--energy equivalence]
+$E = mc^2$
+\end{theorem}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Table}
+\begin{table}
+\begin{tabular}{l l l}
+\toprule
+\textbf{Treatments} & \textbf{Response 1} & \textbf{Response 2}\\
+\midrule
+Treatment 1 & 0.0003262 & 0.562 \\
+Treatment 2 & 0.0015681 & 0.910 \\
+Treatment 3 & 0.0009271 & 0.296 \\
+\bottomrule
+\end{tabular}
+\caption{Table caption}
+\end{table}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile] % Need to use the fragile option when verbatim is used in the slide
+\frametitle{Verbatim}
+\begin{example}[Theorem Slide Code]
+\begin{verbatim}
+\begin{frame}
+\frametitle{Theorem}
+\begin{theorem}[Mass--energy equivalence]
+$E = mc^2$
+\end{theorem}
+\end{frame}\end{verbatim}
+\end{example}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Figure}
+Uncomment the code on this slide to include your own image from the same directory as the template .TeX file.
+%\begin{figure}
+%\includegraphics[width=0.8\linewidth]{test}
+%\end{figure}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile] % Need to use the fragile option when verbatim is used in the slide
+\frametitle{Citation}
+An example of the \verb|\cite| command to cite within the presentation:\\~
+
+This statement requires citation \cite{p1}.
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{References}
+\footnotesize{
+\begin{thebibliography}{99} % Beamer does not support BibTeX so references must be inserted manually as below
+\bibitem[Smith, 2012]{p1} John Smith (2012)
+\newblock Title of the publication
+\newblock \emph{Journal Name} 12(3), 45 -- 678.
+\end{thebibliography}
+}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\Huge{\centerline{The End}}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\end{document} 
