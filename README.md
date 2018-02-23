@@ -6,4 +6,7 @@
 
 ## Seminar
 
+## workFlow
+modified from MyReduction_no_bib
+
 ## just something to change
