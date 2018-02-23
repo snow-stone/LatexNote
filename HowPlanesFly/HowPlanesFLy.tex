@@ -1,13 +1,20 @@
-\documentclass[a4paper,10pt,francais]{article}
-    \usepackage[T1]{fontenc}
-    \usepackage[ansinew]{inputenc}
+% !TEX encoding = UTF-8
+% !TEX program = pdflatex
+
+% not using babel francais but being able to input French and insert Chinese using CJKutf8
+
+\documentclass[a4paper,10pt]{article}
+	\usepackage{CJKutf8}
+    %\usepackage[utf8]{inputenc}      % must for french accents, direct input from keyboard. Other wise letters with accents will not be omitted (if CJKutf8 is not used)
+    % must : T1 font encoding 
+    \usepackage[T1]{fontenc}          
+    
     \usepackage{graphicx}
-    \usepackage{babel}
-    \usepackage{amssymb}
-	\usepackage{textcomp}
-	\usepackage{bm}
-	\usepackage{authblk}
 	\usepackage{amsmath}
+	% for url in bibtex
+	\usepackage{url}                  
+
+	
 %%% Mise en page
 \setlength{\hoffset}{-0.75in} \setlength{\voffset}{-0.50in}
 \setlength{\topmargin}{0cm} \setlength{\headheight}{0cm}
@@ -15,72 +22,15 @@
 \setlength{\textheight}{26.5cm} \setlength{\footskip}{0cm}
 \pagestyle{empty} \everymath{\displaystyle}
 
-%%% Compteurs
-\newcounter{exo}
-\newcommand{\nvexo}{
-\stepcounter{exo} \vspace{0.2cm} \noindent
-                  \textbf{Exercice n${}^o$\theexo}\hrulefill \\
-                       }
-
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\C}{\mathbb{C}}
-\newcommand{\N}{\mathbb{N}}
-\newcommand{\Z}{\mathbb{Z}}
-\newcommand{\Q}{\mathbb{Q}}
-\newcommand{\et}{\textrm{ et }}
-\newcommand{\ou}{\textrm{ ou }}
-\newcommand{\non}{\textrm{non }}
-\newcommand{\ssi}{si et seulement si }
-\newcommand{\ch}{\mathrm{ch }\, }
-\newcommand{\sh}{\mathrm{sh }\, }
-\newcommand{\tnh}{\mathrm{th }\, }
-\newcommand{\pgcd}{\mathrm{pgcd} }
-\newcommand{\ppcm}{\mathrm{ppcm} }
-\newcommand{\com}{\mathrm{com} }
-\newcommand{\rg}{\mathrm{rg} }
-\newcommand{\val}{\mathrm{val} }
-\newcommand{\Argch}{\mathrm{Argch }\, }
-\newcommand{\Argsh}{\mathrm{Argsh }\, }
-\newcommand{\Argth}{\mathrm{Argth }\, }
-\newcommand{\Arcsin}{\mathrm{Arcsin }\, }
-\newcommand{\Arccos}{\mathrm{Arccos }\, }
-\newcommand{\Arctan}{\mathrm{Arctan }\, }
-\newcommand{\rd}[1]{\overset{\; \circ}{#1}}
-\newcommand{\br}[1]{\overline{#1}}
-\newcommand{\un}{$(u_n)_{n \in \N}$}
-\newcommand{\card}{\mathrm{Card}}
-\newcommand{\re}{\textrm{Re }}
-\newcommand{\im}{\textrm{Im }}
-\newcommand{\pr}{{\bf Preuve.} }
-\newcommand{\vect}[1]{\overrightarrow{#1}}
-\newcommand{\boite}[1]{\framebox[1.1\width]{#1}}
-\newcommand{\voca}{ \section{Vocabulaire de la le�on}}
-\newcommand{\dr}{\begin{quote}}
-\newcommand{\fr}{\end{quote}}
-
-
-%%% Abreviations
-\let\leq=\leqslant \let\geq=\geqslant
-\let\sm=\setminus
-\let\wt=\widetilde
-\let\wh=\widehat
-\let \l=<
-\let \g=>
-\newtheorem{thm}{Th�or�me}
-\newcommand{\cqfd}{\hfill $\Box$}
-\newcommand{\sern}{\sum_{n=1}^{\infty}}
-\pagestyle{myheadings}
-\markright{{\footnotesize \'Ecole Centrale de Lyon - LMFA}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\title{How Planes Fly}
-\author[1]{David Louapre}
-\affil[1]{https://sciencetonnante.wordpress.com/2016/09/25/comment-un-avion-vole-t-il/}
-\author[2]{Dr Goulu}
-\affil[2]{https://www.drgoulu.com/2012/03/11/portance-pourquoi-ca-vole/\#.WcXzI8gjGM8}
-\author[3]{Couleur Science}
-\affil[3]{https://couleur-science.eu/?d=2016/09/15/22/46/21-comment-vole-un-avion-et-non-ce-nest-pas-juste-bernoulli}
-\renewcommand\Affilfont{\itshape\small}
+\title{
+How Planes Fly 
+ \cite{Louapre}
+ \cite{Goulu}
+ \cite{CouleurScience}
+}
+
 
 \begin{document}
 \parindent=0cm
@@ -91,8 +41,16 @@
 
 \section{Quick Answer}
 
-Coanda Effect makes planes fly.
-
+Coanda Effect makes planes fly.   
+à
+è
+é
+î
+ê
+ï
+ç
+français
+î
 
 \section{notes and memory}
 
@@ -105,6 +63,15 @@ Bernoulli theorem is often taken as/talked about concerning lifts. Its explicati
 \caption{\label{fig:1} The pressure difference just don't count that much in lift}
 \end{figure}
 
+\begin{CJK*}{UTF8}{gbsn}
+ 
+\section{前言}
+在该第一部分中的一些额外的元素可以被添加。巴贝尔包将采取的翻译服务.
+
+\section{关于数学部分}
+在本节中的一些数学会使用数学模型含中文字符显示。
+ 
+\end{CJK*}
 
 Have a look at Fig\ref{fig:1}, trival isn't it?! In reality, lift created by this pressure difference is minor. Whereas a Newton's law seem to apply when taking the flow over airfoil as a whole : the fluid is derived by airfoil {\it somehow (actually by coanda effect)} getting a momentum downwards thus giving airplane a momentum upwards.\\
 
@@ -121,7 +88,7 @@ At $t+\Delta t$
 $$\vec{p'} = \iiint_V \rho\vec{v}(\vec{x}) d\tau$$
 Momentum change rate:
 $$\vec{F}=\frac{d\vec{p}}{dt}= \lim_{\Delta t \to 0} \iiint_V \rho (\frac{\vec{v}(\vec{x}+\vec{v}\Delta t) - \vec{v}(\vec{x})}{\Delta t}) d\tau$$
-Which is a direction derivative of $\vec{v}$ in direction $\vec{v}$ (See Pauly's G�ometrie 2):
+Which is a direction derivative of $\vec{v}$ in direction $\vec{v}$ (See Pauly's Geometrie 2):
 $$\frac{d\vec{p}}{dt}= \iiint_V \rho(\vec{v} \cdot \vec{\nabla} \vec{v}) d\tau$$
 Taking the instationnarity into account, we obtain then
 $$\frac{d\vec{p}}{dt}= \iiint_V \rho(\frac{\partial\vec{v}}{\partial t} + \vec{v} \cdot \vec{\nabla} \vec{v}) d\tau = \iiint_V \rho \frac{D\vec{v}}{Dt} d\tau$$
@@ -132,10 +99,14 @@ Take one step back and think of Newton's second law in high school which only in
 A note on vectorial derivative : differentiable function admits vectorial devrivative. 
 $$(vf)_a = f_{*,a}(v)=v_1 \frac{\partial f}{\partial x_1}+\dots + v_n \frac{\partial f}{\partial x_n}$$
 
-On Pauly's G�ometrie 2. Page 14 and 15. The "tangent space" (maybe 2D and 1D) of two examples are :
+On Pauly's Geometrie 2. Page 14 and 15. The "tangent space" (maybe 2D and 1D) of two examples are :
 $$f(a) + J(f)_a \cdot \left(\begin{array}{c} \lambda_1 \\ \lambda_2 \end{array}\right)$$
 and 
 $$f(0) + J(f)_0 \cdot (t) = \left(\begin{array}{c} 1/2 t \\ 1/2 t \end{array}\right)$$
 $$f(\pi) + J(f)_{\pi} \cdot (t) = \left(\begin{array}{c} -1/2 t \\ 1/2 t \end{array}\right)$$
+
+\newpage
+\bibliography{HowPlanesFly}
+\bibliographystyle{ieeetr}
 
 \end{document}
