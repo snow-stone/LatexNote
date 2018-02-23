@@ -1,13 +1,18 @@
-\documentclass[a4paper,10pt,francais]{article}
+% Can insert Chinese while there's no french accent and while having French accent
+
+
+
+\documentclass[a4paper,10pt]{article}
+	\usepackage{CJKutf8}
+	\usepackage[utf8]{inputenc}
     \usepackage[T1]{fontenc}
-    \usepackage[ansinew]{inputenc}
     \usepackage{graphicx}
-    \usepackage{babel}
     \usepackage{amssymb}
-	\usepackage{textcomp}
-	\usepackage{bm}
+	% bold math
+	\usepackage{bm}       
 	\usepackage{color}
-	%\usepackage{siunitx} % for angle
+
+
 %%% Mise en page
 \setlength{\hoffset}{-0.75in} \setlength{\voffset}{-0.50in}
 \setlength{\topmargin}{0cm} \setlength{\headheight}{0cm}
@@ -15,61 +20,6 @@
 \setlength{\textheight}{26.5cm} \setlength{\footskip}{0cm}
 \pagestyle{empty} \everymath{\displaystyle}
 
-%%% Compteurs
-\newcounter{exo}
-\newcommand{\nvexo}{
-\stepcounter{exo} \vspace{0.2cm} \noindent
-                  \textbf{Exercice n${}^o$\theexo}\hrulefill \\
-                       }
-
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\C}{\mathbb{C}}
-\newcommand{\N}{\mathbb{N}}
-\newcommand{\Z}{\mathbb{Z}}
-\newcommand{\Q}{\mathbb{Q}}
-\newcommand{\et}{\textrm{ et }}
-\newcommand{\ou}{\textrm{ ou }}
-\newcommand{\non}{\textrm{non }}
-\newcommand{\ssi}{si et seulement si }
-\newcommand{\ch}{\mathrm{ch }\, }
-\newcommand{\sh}{\mathrm{sh }\, }
-\newcommand{\tnh}{\mathrm{th }\, }
-\newcommand{\pgcd}{\mathrm{pgcd} }
-\newcommand{\ppcm}{\mathrm{ppcm} }
-\newcommand{\com}{\mathrm{com} }
-\newcommand{\rg}{\mathrm{rg} }
-\newcommand{\val}{\mathrm{val} }
-\newcommand{\Argch}{\mathrm{Argch }\, }
-\newcommand{\Argsh}{\mathrm{Argsh }\, }
-\newcommand{\Argth}{\mathrm{Argth }\, }
-\newcommand{\Arcsin}{\mathrm{Arcsin }\, }
-\newcommand{\Arccos}{\mathrm{Arccos }\, }
-\newcommand{\Arctan}{\mathrm{Arctan }\, }
-\newcommand{\rd}[1]{\overset{\; \circ}{#1}}
-\newcommand{\br}[1]{\overline{#1}}
-\newcommand{\un}{$(u_n)_{n \in \N}$}
-\newcommand{\card}{\mathrm{Card}}
-\newcommand{\re}{\textrm{Re }}
-\newcommand{\im}{\textrm{Im }}
-\newcommand{\pr}{{\bf Preuve.} }
-\newcommand{\vect}[1]{\overrightarrow{#1}}
-\newcommand{\boite}[1]{\framebox[1.1\width]{#1}}
-\newcommand{\voca}{ \section{Vocabulaire de la le�on}}
-\newcommand{\dr}{\begin{quote}}
-\newcommand{\fr}{\end{quote}}
-
-%%% Abreviations
-\let\leq=\leqslant \let\geq=\geqslant
-\let\sm=\setminus
-\let\wt=\widetilde
-\let\wh=\widehat
-\let \l=<
-\let \g=>
-\newtheorem{thm}{Th�or�me}
-\newcommand{\cqfd}{\hfill $\Box$}
-\newcommand{\sern}{\sum_{n=1}^{\infty}}
-\pagestyle{myheadings}
-\markright{{\footnotesize \'Ecole Centrale de Lyon - LMFA}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -77,8 +27,6 @@
 \begin{document}
 \parindent = 0cm
 \parskip=3mm
-
-
 
 \LARGE{ {\bf Computaional Reology - REDUCTION}}
 
@@ -91,13 +39,13 @@
 \vspace{-.2cm}
 \normalsize{}
  
-\dr
-{\bf Th�or�me 2.1.} \\
+\begin{quote}
+{\bf Theoreme 2.1.} \\
 Transformation from a stress vector $\bm{s}_n(\bm{x},t)$ at a surface to a stress tensor $\bm{\sigma}(\bm{x},t)$. Proved its existence provided that the stress tensor is symmetric (for uniqueness? See appendix)
 $$
 \bm{s}_n(\bm{x},t) = \bm{n} \cdot \bm{\sigma}(\bm{x},t)
 $$
-\fr
+\end{quote}
 
 {\bf 2.4 Newtonian Fluid} \\
 Write the components $\sigma_{ij}$ of $\bm{\sigma}$ in 
@@ -160,6 +108,8 @@ FENE, Phan-Thien-Tanne
 
 \section{Mesh}
 
+Red lines are CAO database. Green lines are connectors. In Pointwise surface mesh is called domains and block is the name for volume mesh assembled by domains.
+
 As in Fig.\ref{mesh_sketch} we have divided the cylinder into three parts and for the circular section we have a butterfly-9-domain mesh. The total cell count is around 1.5 Million. The whole section is a circle of Diameter $D=8mm$. The central domain is $1mm \times 1mm$ with dimenstion $12 \times 12$ where as the other 8 domain have a dimension $6 \times 40$. And each of the three part is about $10D$ long with $240 cells$ along the pipe. The first cell here is actually set to of $0.051mm$ in the case with nominative Reynolds number $2400$ estimating $u_\tau=0.0218m/s$. 
 
 \subsection{Meshing strategy}
@@ -191,7 +141,7 @@ I also tried snappyHexMesh using visualCFD (helpful for generating the snappyHex
 
 On the other hand, the meshes I created with T-Rex may actually work because we thought always there was something wrong with meshing. Well, there was until we get to relatively big Reynolds (there was a time that Re=1200 works while Re=2400 doesn't ... by memory, it's the one with a fillet but having very distorted cells). And when I continue to mesh with more cells, there comes the solvers constraint so not the problem with mesh. The current solver settings for $U\ p$ are much better than previous ones. I suppose old meshes with T-Rex may work and it's convenient if T-Rex works because even complicating the geometry (in the block meshing point of view) with a fillet, the mesh generation is practically the same/easy. And this may solve the problem with very big velocity at the corner. \\
 
-Downside for snappyHexMesh (they tell me snappy is really good at making cells orthogonal from the OpenFOAM forum of China) and T-Rex is that we lose the absolute control of every cell.
+Downside for snappyHexMesh \textcolor{blue}{Case Location on zaurak hluo/OpenFOAM/VE13} (they tell me snappy is really good at making cells orthogonal from the OpenFOAM forum of China) and T-Rex is that we lose the absolute control of every cell.  
 
 \subsection{Mesh Setting in Channel Flow}
 $\Delta x$ is a geometric serie $\iff$ $\Delta x$ is proportional to $x$
@@ -203,47 +153,56 @@ Alex, the one with linear relationship (necessity demonstration above, leave beh
 
 \subsection{Standard procedure for cases}
 How to do the cleansing of the mesh to clear out all possible errors systematically.\\
+
 \begin{enumerate}
+\item Estimate wall unity $\frac{\nu}{u_\tau}$ for first wall mesh size \begin{CJK*}{UTF8}{gkai} \textbf{计算进口流量，平均剖面，这样来确保至少 $u_\tau$ 和流量相容} \end{CJK*} 
 \item Pointwise
-\begin{enumerate}
-\item Estimate wall unity $\frac{\nu}{u_\tau}$ for first mesh size 
-\item Examine domains' aspect ratio see if it's symmetric 
-\item Select all connectors and apply equal spacing 
-\item Re-examine 1 
-\item Still not symmetric, cut the other half then mirror and merge. Apply spacing constraint to wall. 
-\item Check for mesh quality (pointwise has different metrics to OpenFOAM): aspect ratio, non-orthogonality, skewness... 
-\item CAE-solver-OpenFOAM 
-\item Delete ALL BCs and make new BC then select all blocks -> export -> CAE \\
-\end{enumerate} 
+	\begin{enumerate}
+	\item Examine domains' aspect ratio see if it's symmetric 
+	\item Select all connectors and apply equal spacing 
+	\item Re-examine 1 
+	\item Still not symmetric, cut the other half -> mirror -> merge -> apply spacing constraint to wall for first wall mesh size. 
+	\item Check for mesh quality (Pointwise has different metrics to OpenFOAM's \textit{checkMesh}): aspect ratio, non-orthogonality, skewness... 
+	\item CAE -> solver -> OpenFOAM 
+	\item Delete ALL BCs and make new BC then select all blocks -> export -> CAE \\
+	\end{enumerate} 
 
 \item Before running simulation
-\begin{enumerate}
-\item Rescale to meter : \textit{transformPoints -scale '(0.001 0.001 0.001)'} 
-\item \textit{checkMesh} 
-\item \textit{decomposePar} : run this interactively to see if it works as intended at the same time we can see output from my user-defined BC (useful). 
-
-\item Double check the solver used in sbatch job submission file. Add memory test(one-noed version or multi-noeds version) if needed. 
-\item Check \textit{\$nos} \textit{\$logFile} numbering. Name the submission file using \textbf{8 chars}. 
-\item Final check for fluid properties. $\nu$ or non-newtonian laws. \\
-\end{enumerate}
+	\begin{enumerate}
+	\item \begin{CJK*}{UTF8}{gkai} \textbf{重要} \end{CJK*}  Rescale to meter : \textit{transformPoints -scale '(0.001 0.001 0.001)'} 
+	\item \textit{checkMesh} 
+	\item \textit{decomposePar} : run this interactively to see if it works as intended at the same time we can see output from my user-defined BC (useful). 
+	
+	\item \begin{CJK*}{UTF8}{gkai} \textbf{重要} \end{CJK*} Double check the solver used in \textit{sbatch} job submission file -> if needed add memory test (one-noed version or multi-noeds version). 
+	\item In job submission file, check \textit{\$nos} \textit{\$logFile} numbering. Name the submission file using \textbf{8 chars}. 
+	\item Final check for fluid properties and turbulence Model in \textit{constant}: $\nu$ or non-newtonian laws. \\
+	\end{enumerate}
 
 \item Simulation and postProcessing
-\begin{enumerate}
-\item Run simulation. 
-\item Monitoring log : Check CFL -> deltaT. 
-\item Monitoring log : Iterative sub solver performance : Iter* and residual for $(U\ p)$. 
-\item python based postprocessing using paraview (auto-determine machine zaurak/visu )
-\item Calculate $y^+ = \frac{u_\tau y}{\nu}$ a posteriori. 
-\item Using more cells number recalculate $y^+ = \frac{u_\tau y}{\nu}$ a posteriori. 
-\item Numerical scheme : time and space (less dissipative). 
-\item Check for max(U) at the corner. 
-\item Check for fluctuations at Dai's mesurement using \textit{probes\_Dai} 
-\item Check for pressure solver abnormal behavior using \textit{probes\_pMonitor} 
-\item Check \textit{probes\_Port1\_and\_Port2} 
-\item \textit{sample -dict system/someDict} all \textit{timedir} for statistics 
-\item Field statistics like : turbulent kinetic energy, skewness (three components), dissipation rate. For convergence. Others : wall shear stress (viscous + turbulent) is constant in the whole boundary layer.
-\item Dissipation rate (a posteriori) determines K-scale $\eta_K$ which is critical for DNS -> reasonable MAX cell size. \\
+	\begin{enumerate}
+	\item Estimate simulation time -> choose queue -> Run simulation. 
+	\item Monitoring log : Check CFL -> deltaT. 
+	\item Monitoring log : Iterative sub solver performance : Iter* and residual for $(U\ p)$. 
+	\item Visualization using paraview : python based (auto-determine machine zaurak/visu )
+	\item Calculate $y^+ = \frac{u_\tau y}{\nu}$ a posteriori. 
+	\item Using more cells number recalculate $y^+ = \frac{u_\tau y}{\nu}$ a posteriori \begin{CJK*}{UTF8}{gkai} \textbf{看看是否还需要再加密网格} \end{CJK*}. 
+	\item Numerical scheme : time and space (less dissipative). 
+	\item Check for max(U) at the corner. 
+	\item Check for fluctuations at Dai's result using \textit{probes\_Dai} 
+	\item Check for pressure solver abnormal behavior using \textit{probes\_pMonitor} 
+	\item Check \textit{probes\_Port1\_and\_Port2} 
+	\item \textit{sample -dict system/someDict} all \textit{timedir} for statistics 
+	\item Field statistics like : turbulent kinetic energy, skewness (three components), dissipation rate. For convergence. Others : wall shear stress (viscous + turbulent) is constant in the whole boundary layer.
+	\item Dissipation rate (a posteriori) determines K-scale $\eta_K$ which is critical for DNS -> reasonable MAX cell size. \\
+	\end{enumerate}
+
 \end{enumerate}
+
+\begin{enumerate}
+\item snappyHexMesh
+\begin{CJK*}{UTF8}{gkai} 
+\textbf{Hozlmann的tutorial(45DegreePipe)里面有先scale $1000$倍再rescale $1/1000$的过程，中间做snappy meshing，用一个bash script来完成的操作，具体原因未明} 
+\end{CJK*}
 
 \end{enumerate}
 
@@ -251,9 +210,13 @@ How to do the cleansing of the mesh to clear out all possible errors systematica
 \subsection{BC}
 Try : \\
 \begin{itemize}
-\item[$\diamond$] $\nabla p \cdot \vec{n}=0$ at all patches and add a reference pressure value somewhere in the tube to leave $p_{outlet}=10$ which may be too tight.
+\item[$\bullet$] \begin{CJK*}{UTF8}{gkai} 用压力差作为p边界条件比约束速度更容易收敛 \end{CJK*}
 
-\item[$\diamond$] pipe flow with \textit{cyclic} BC
+\item[$\bullet$] $\nabla p \cdot \vec{n}=0$ at all patches and add a reference pressure value somewhere in the tube to leave $p_{outlet}=10$ which may be too tight.=> \begin{CJK*}{UTF8}{gkai} 从微分方程的角度，在所有的边界上都需要有边界条件，加上pRef是为了求解二阶的泊松方程，从这个角度上述条件似乎讲得通。icoFoam tutorial cavity里除去没有进口条件(有速度在滑动壁面的条件->但这没有流量流进),跟上述p的BC设定是一样的，cavity里面fvSolution里面去掉pRef直接会报错。但我的case即使加上pRef，也会出现流量不守恒，但仅仅在求解p方程的时候出现。\textcolor{red}{怎么知道p的值，在预测步？具体流量怎么算的，这个应该不复杂} \end{CJK*} 
+
+\item[$\diamond$] \begin{CJK*}{UTF8}{gkai} 进口条件里非流向的扰动是否被输运了？加和不加是不是一样，可以通过BC来测试，让流向生成两组同样的随机数，一组加非流向的扰动另一组不加非流向的扰动 \end{CJK*}
+
+\item[$\diamond$] pipe flow with \textit{cyclic} BC \begin{CJK*}{UTF8}{gkai} 需要确定是否在网格生成的时候就需要设定好特定的除去cyclic的条件，neighbor是什么 \end{CJK*}
 
 \item[$\diamond$] \textit{mapped} BC. Tutorial pisoFoam/les/ptizDaylyMapped. In blockMesh there is a offset which you can find in mappedPatchBase class.
 
@@ -262,7 +225,11 @@ Try : \\
 \subsection{mesh}
 Try : \\
 \begin{itemize}
-\item[$\diamond$] Use current solver settings to test T-Rex mesh ! Pipe or T. 
+\item[$\diamond$] Use current solver settings to test T-Rex mesh ! Pipe or T.
+
+\item[$\diamond$] \begin{CJK*}{UTF8}{gkai} SnappyHexMesh 逼近1.5M网格数 \end{CJK*} 
+
+\item[$\diamond$] Poinwise solver to improve quality
 
 \end{itemize}
 
@@ -288,7 +255,7 @@ Roussel \cite{Roussel2016} has iterative procedure to determine the right profil
 1. Knowing the $\delta_{in}$ at the inlet estimate $X_0$ which is the position from the leading edge. \\
 2. $\delta_{in} \Longrightarrow \delta(x) \Longrightarrow Re_{\delta(x)}$
 3. Using $\delta(x) and Re_{\delta(x)}$ at specific position $x$, estimate $u_\tau$ by firstly guessing or by abaque have a $c_f^{(0)}$ then we will have a guess of $u_\tau$. \\
-4. Using classic results inside the boundary layer mean profile along with the external flow with $u_\infty$, calculate the thickness $\theta$ then estimate $c_f^{(1)}$ with eq. (3.13). \textcolor{blue}{lois de parois classique Cf=[2log ...] Is this what you mean Alex?}\\
+4. Using classic results inside the boundary layer mean profile along with the external flow with $u_\infty$, calculate the thickness $\theta$ then estimate $c_f^{(1)}$ with eq. (3.13). \\
 5. Getting $c_f^{(1)}$ means getting a new $u_\tau$ because $c_f = \frac{\tau_w}{\frac{1}{2}\rho u_\infty^2}$ and $\tau_w \Longrightarrow u_\tau$\\
 \textcolor{red}{How can I do this without knowing $\delta_{in}$ ???}\\
 HuangGang \cite{huang2015} mentioned a weighting function
